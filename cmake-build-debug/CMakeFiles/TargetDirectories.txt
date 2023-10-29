@@ -1,0 +1,3 @@
+C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/CMakeFiles/CASTR.dir
+C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/CMakeFiles/rebuild_cache.dir

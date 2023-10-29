@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.26)
+project(CASTR)
+
+set(CMAKE_CXX_STANDARD 23)
+
+# Set the path to the GLFW library files
+set(GLFW_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/libglfw3dll.a")
+set(GLFW_DLL_PATH "${CMAKE_SOURCE_DIR}/lib/glfw3.dll")
+
+# Add the directory containing GLFW headers to include path
+include_directories("${CMAKE_SOURCE_DIR}/include")
+
+add_library(GLFW SHARED IMPORTED)
+set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
+
+add_executable(CASTR main.cpp)
+
+# Link GLFW to your executable
+target_link_libraries(CASTR PRIVATE GLFW)
+
+# Copy the GLFW DLL to the output directory
+add_custom_command(TARGET CASTR POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${GLFW_DLL_PATH}"
+        $<TARGET_FILE_DIR:CASTR>)
