@@ -49,26 +49,26 @@ cmake_ninja_workdir = C$:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/
 
 build cmake_object_order_depends_target_CASTR: phony || CMakeFiles/CASTR.dir
 
-build CMakeFiles/CASTR.dir/main.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/main.cpp || cmake_object_order_depends_target_CASTR
-  DEP_FILE = CMakeFiles\CASTR.dir\main.cpp.obj.d
+build CMakeFiles/CASTR.dir/src/main.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/main.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\main.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
   OBJECT_DIR = CMakeFiles\CASTR.dir
-  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src
 
-build CMakeFiles/CASTR.dir/Rendering/Renderer.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Rendering/Renderer.cpp || cmake_object_order_depends_target_CASTR
-  DEP_FILE = CMakeFiles\CASTR.dir\Rendering\Renderer.cpp.obj.d
+build CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Rendering/Renderer.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Rendering\Renderer.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
   OBJECT_DIR = CMakeFiles\CASTR.dir
-  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\Rendering
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Rendering
 
-build CMakeFiles/CASTR.dir/Geometry/Geometry.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Geometry/Geometry.cpp || cmake_object_order_depends_target_CASTR
-  DEP_FILE = CMakeFiles\CASTR.dir\Geometry\Geometry.cpp.obj.d
+build CMakeFiles/CASTR.dir/src/Geometry/Geometry.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Geometry/Geometry.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Geometry\Geometry.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
   OBJECT_DIR = CMakeFiles\CASTR.dir
-  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\Geometry
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Geometry
 
 build CMakeFiles/CASTR.dir/include/glad/glad.c.obj: C_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/include/glad/glad.c || cmake_object_order_depends_target_CASTR
   DEP_FILE = CMakeFiles\CASTR.dir\include\glad\glad.c.obj.d
@@ -77,12 +77,19 @@ build CMakeFiles/CASTR.dir/include/glad/glad.c.obj: C_COMPILER__CASTR_unscanned_
   OBJECT_DIR = CMakeFiles\CASTR.dir
   OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\include\glad
 
-build CMakeFiles/CASTR.dir/Rendering/Shader.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Rendering/Shader.cpp || cmake_object_order_depends_target_CASTR
-  DEP_FILE = CMakeFiles\CASTR.dir\Rendering\Shader.cpp.obj.d
+build CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Rendering/Shader.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Rendering\Shader.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
   OBJECT_DIR = CMakeFiles\CASTR.dir
-  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\Rendering
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Rendering
+
+build CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Window/Window.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Window\Window.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Window
 
 
 # =============================================================================
@@ -92,7 +99,7 @@ build CMakeFiles/CASTR.dir/Rendering/Shader.cpp.obj: CXX_COMPILER__CASTR_unscann
 #############################################
 # Link the executable CASTR.exe
 
-build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/main.cpp.obj CMakeFiles/CASTR.dir/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/Rendering/Shader.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
+build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/src/main.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/src/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CASTR.dir

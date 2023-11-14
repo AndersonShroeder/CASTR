@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "glad/glad.h"
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 #include <vector>
 
 #endif //CASTR_IMPORTS_H

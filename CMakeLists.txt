@@ -14,18 +14,20 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 add_library(GLFW SHARED IMPORTED)
 set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
 
-add_executable(CASTR main.cpp
-        Rendering/Renderer.cpp
-        Rendering/Renderer.h
-        Geometry/Geometry.cpp
-        Geometry/Geometry.h
+add_executable(CASTR src/main.cpp
+        src/Rendering/Renderer.cpp
+        src/Rendering/Renderer.h
+        src/Geometry/Geometry.cpp
+        src/Geometry/Geometry.h
         include/glad/glad.h
         include/KHR/khrplatform.h
         include/glad/glad.c
-        imports.h
-        shaders.h
-        Rendering/Shader.cpp
-        Rendering/Shader.h
+        src/imports.h
+        src/Shaders/shaders.h
+        src/Rendering/Shader.cpp
+        src/Rendering/Shader.h
+        src/Window/Window.cpp
+        src/Window/Window.h
 )
 
 # Link GLFW to your executable
