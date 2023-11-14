@@ -10,10 +10,21 @@ set(GLFW_DLL_PATH "${CMAKE_SOURCE_DIR}/lib/glfw3.dll")
 # Add the directory containing GLFW headers to include path
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
+
 add_library(GLFW SHARED IMPORTED)
 set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
 
-add_executable(CASTR main.cpp)
+add_executable(CASTR main.cpp
+        Rendering/Renderer.cpp
+        Rendering/Renderer.h
+        Geometry/Geometry.cpp
+        Geometry/Geometry.h
+        include/glad/glad.h
+        include/KHR/khrplatform.h
+        include/glad/glad.c
+        imports.h
+        shaders.h
+)
 
 # Link GLFW to your executable
 target_link_libraries(CASTR PRIVATE GLFW)
