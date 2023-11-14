@@ -77,6 +77,13 @@ build CMakeFiles/CASTR.dir/include/glad/glad.c.obj: C_COMPILER__CASTR_unscanned_
   OBJECT_DIR = CMakeFiles\CASTR.dir
   OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\include\glad
 
+build CMakeFiles/CASTR.dir/Rendering/Shader.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Rendering/Shader.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\Rendering\Shader.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\Rendering
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CASTR
@@ -85,7 +92,7 @@ build CMakeFiles/CASTR.dir/include/glad/glad.c.obj: C_COMPILER__CASTR_unscanned_
 #############################################
 # Link the executable CASTR.exe
 
-build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/main.cpp.obj CMakeFiles/CASTR.dir/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
+build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/main.cpp.obj CMakeFiles/CASTR.dir/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/Rendering/Shader.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CASTR.dir

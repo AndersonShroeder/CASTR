@@ -24,6 +24,8 @@ add_executable(CASTR main.cpp
         include/glad/glad.c
         imports.h
         shaders.h
+        Rendering/Shader.cpp
+        Rendering/Shader.h
 )
 
 # Link GLFW to your executable

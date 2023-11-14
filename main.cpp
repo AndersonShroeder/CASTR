@@ -2,6 +2,7 @@
 #include "Geometry/Geometry.h"
 #include "shaders.h"
 #include "Rendering/Renderer.h"
+#include "Rendering/Shader.h"
 
 int main() {
     // Initialize GLFW
@@ -17,7 +18,6 @@ int main() {
 
 
     // Make the created window the current OpenGL context
-
     glfwMakeContextCurrent(window);
 
     // Load OpenGL function pointers using GLAD
@@ -25,23 +25,6 @@ int main() {
 
     // Set the swap interval (vertical sync) to 1 (enabled)
     glfwSwapInterval(1);
-
-    unsigned int vertexShader, fragmentShader, shaderProgram;
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
 
     Triangles t = Triangles({0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
                                     0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -51,15 +34,13 @@ int main() {
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
 
+    Shader shader{vertexShaderSource, fragmentShaderSource};
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindVertexArray(VAO);
-        glUseProgram(shaderProgram);
-
-        renderer.render(t, VAO);
+        renderer.render(t, shader, VAO);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

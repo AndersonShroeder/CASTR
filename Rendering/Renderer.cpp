@@ -5,7 +5,11 @@
 #include "../Geometry/Geometry.h"
 #include "Renderer.h"
 
-void BasicShapeRenderer::render(Geometry object, GLuint VAO) {
+void BasicShapeRenderer::render(Geometry &object, Shader &shader, GLuint VAO) {
+    shader.useShader();
+
+    glBindVertexArray(VAO);
+
     GLuint gridVBO, gridIBO;
     glGenBuffers(1, &gridVBO);
     glBindBuffer(GL_ARRAY_BUFFER, gridVBO);

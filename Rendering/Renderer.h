@@ -5,16 +5,18 @@
 #ifndef CASTR_RENDERER_H
 #define CASTR_RENDERER_H
 
+#include "Shader.h"
+
 template <class T>
 class Renderer {
 
 public:
-    virtual void render(T object, GLuint VAO) = 0;
+    virtual void render(T &object, Shader &shader, GLuint VAO) = 0;
 };
 
 class BasicShapeRenderer : public Renderer<Geometry>{
 public:
-    void render(Geometry object, GLuint VAO) override;
+    void render(Geometry &object, Shader &shader, GLuint VAO) override;
 };
 
 #endif //CASTR_RENDERER_H
