@@ -12,25 +12,26 @@ struct Vector {
     // Constructors
     inline Vector() = default;
     inline Vector(std::initializer_list<T> initList);
+    inline Vector(Vector &v);
     inline explicit Vector(T initList[N]);
 
     // Scalar Operations
-    inline Vector operator+(T &s);
-    inline Vector operator-(T &s);
-    inline Vector operator*(T &s);
-    inline Vector operator/(T &s);
+    inline Vector operator+(T s);
+    inline Vector operator-(T s);
+    inline Vector operator*(T s);
+    inline Vector operator/(T s);
 
     // Element wise Operations
-    inline Vector operator+(Vector &v);
-    inline Vector operator-(Vector &v);
-    inline Vector operator*(Vector &v);
-    inline Vector operator/(Vector &v);
+    inline Vector operator+(Vector v);
+    inline Vector operator-(Vector v);
+    inline Vector operator*(Vector v);
+    inline Vector operator/(Vector v);
 
     // Element Wise Assignment Operations
-    inline Vector operator+=(Vector &v);
-    inline Vector operator-=(Vector &v);
-    inline Vector operator*=(Vector &v);
-    inline Vector operator/=(Vector &v);
+    inline Vector operator+=(Vector v);
+    inline Vector operator-=(Vector v);
+    inline Vector operator*=(Vector v);
+    inline Vector operator/=(Vector v);
 
     // Array Operations
     inline T& operator[](size_t index);
@@ -38,9 +39,8 @@ struct Vector {
 
     // Vector Operations
     inline T magnitude();
-    inline Vector normalize();
-    inline Vector orthogonal();
-    inline T dotProduct(Vector &v);
+
+    std::string toString();
 
 private:
     // Vector elements
@@ -50,12 +50,25 @@ private:
     std::size_t size = N;
 };
 
+
+template<typename T, std::size_t N>
+std::string Vector<T, N>::toString() {
+    std::string str;
+    for (T elem: elements) {
+        str += std::to_string(elem) + ' ';
+    }
+
+    str.pop_back();
+
+    return '[' + str + ']';
+}
+
 //////////////////////////
 // Scalar Operations
 //////////////////////////
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator+(T &s) {
+Vector<T, N> Vector<T, N>::operator+(T s) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -66,7 +79,7 @@ Vector<T, N> Vector<T, N>::operator+(T &s) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator-(T &s) {
+Vector<T, N> Vector<T, N>::operator-(T s) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -77,7 +90,7 @@ Vector<T, N> Vector<T, N>::operator-(T &s) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator*(T &s) {
+Vector<T, N> Vector<T, N>::operator*(T s) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -88,7 +101,7 @@ Vector<T, N> Vector<T, N>::operator*(T &s) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator/(T &s) {
+Vector<T, N> Vector<T, N>::operator/(T s) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -104,7 +117,7 @@ Vector<T, N> Vector<T, N>::operator/(T &s) {
 //////////////////////////
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator+(Vector<T, N> &v) {
+Vector<T, N> Vector<T, N>::operator+(Vector<T, N> v) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -115,7 +128,7 @@ Vector<T, N> Vector<T, N>::operator+(Vector<T, N> &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator-(Vector &v) {
+Vector<T, N> Vector<T, N>::operator-(Vector v) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -126,7 +139,7 @@ Vector<T, N> Vector<T, N>::operator-(Vector &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator*(Vector &v) {
+Vector<T, N> Vector<T, N>::operator*(Vector v) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -137,7 +150,7 @@ Vector<T, N> Vector<T, N>::operator*(Vector &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator/(Vector &v) {
+Vector<T, N> Vector<T, N>::operator/(Vector v) {
     T newElements[N];
 
     for (size_t i = 0; i < N; i++) {
@@ -153,7 +166,7 @@ Vector<T, N> Vector<T, N>::operator/(Vector &v) {
 ////////////////////////
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator+=(Vector &v) {
+Vector<T, N> Vector<T, N>::operator+=(Vector v) {
     for (size_t i = 0; i < N; i++) {
         this->elements[i] = (*this)[i] + v[i];
     }
@@ -162,7 +175,7 @@ Vector<T, N> Vector<T, N>::operator+=(Vector &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator-=(Vector &v) {
+Vector<T, N> Vector<T, N>::operator-=(Vector v) {
     for (size_t i = 0; i < N; i++) {
         this->elements[i] = (*this)[i] - v[i];
     }
@@ -171,7 +184,7 @@ Vector<T, N> Vector<T, N>::operator-=(Vector &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator*=(Vector &v) {
+Vector<T, N> Vector<T, N>::operator*=(Vector v) {
     for (size_t i = 0; i < N; i++) {
         this->elements[i] = (*this)[i] * v[i];
     }
@@ -180,7 +193,7 @@ Vector<T, N> Vector<T, N>::operator*=(Vector &v) {
 }
 
 template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::operator/=(Vector &v) {
+Vector<T, N> Vector<T, N>::operator/=(Vector v) {
     for (size_t i = 0; i < N; i++) {
         this->elements[i] = (*this)[i] / v[i];
     }
@@ -226,23 +239,6 @@ T Vector<T, N>::magnitude() {
     return sqrt(squareSum);
 }
 
-template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::normalize() {
-    T mag = (this->magnitude());
-
-    return Vector<T, N>((*this) / mag);
-}
-
-template<typename T, std::size_t N>
-Vector<T, N> Vector<T, N>::orthogonal() {
-    return Vector();
-}
-
-template<typename T, std::size_t N>
-T Vector<T, N>::dotProduct(Vector &v) {
-    return ((*this) * v).sum();
-}
-
 
 ///////////////
 // Constructors
@@ -261,12 +257,18 @@ Vector<T, N>::Vector(std::initializer_list<T> initList) {
 }
 
 template<typename T, std::size_t N>
+Vector<T, N>::Vector(Vector &v) {
+    for (size_t i = 0; i < N; i++) {
+        (*this)[i] = v[i];
+    }
+}
+
+template<typename T, std::size_t N>
 Vector<T, N>::Vector(T initList[N]) {
     for (size_t i = 0; i < N; i++) {
         this->elements[i] = initList[i];
     }
 }
-
 
 ///////////
 // Typedefs
@@ -274,4 +276,7 @@ Vector<T, N>::Vector(T initList[N]) {
 
 typedef Vector<int, 2> vInt2d;
 typedef Vector<double, 2> vDouble2d;
+
+vDouble2d rotate2D(vDouble2d &v, double degrees);
+
 #endif //CASTR_VECTOR_H

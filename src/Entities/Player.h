@@ -10,7 +10,8 @@
 #include "Entity.h"
 
 class Player: public InputReader, public Entity {
-    void readInput();
+public:
+    void readInput() override;
 };
 
 

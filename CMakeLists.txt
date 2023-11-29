@@ -36,6 +36,7 @@ add_executable(CASTR src/main.cpp
         src/Entities/Player.h
         src/Input/InputReader.h
         src/Entities/Entity.cpp
+        src/Vector/Vector.cpp
 )
 
 # Link GLFW to your executable

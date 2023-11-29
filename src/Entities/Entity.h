@@ -14,15 +14,16 @@ struct PositionInfo{
 };
 
 class Entity {
+protected:
     PositionInfo positionInfo;
-    double moveSpeed = 1;
-    double rotationSpeed = 1;
+    double moveSpeed = .001;
+    double rotationSpeed = .001;
 
 public:
-    PositionInfo getPositionInfo();
+    PositionInfo &getPositionInfo();
     void updatePositionInfo(PositionInfo positionInfo);
-    void updateMoveSpeed(double val);
-    void updateRotationSpeed(double val);
+
+    double getMoveSpeed();
 };
 
 
