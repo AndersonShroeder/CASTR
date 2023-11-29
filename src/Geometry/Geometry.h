@@ -15,25 +15,23 @@ public:
     vVertex vertices;
     vIndex indices;
     GLuint type;
-    GLfloat size;
+    GLfloat size = 0.0f;
 
-    Geometry(vVertex vertices, vIndex indices, GLuint type, GLfloat size);
+    Geometry(vVertex &vertices, vIndex &indices, GLuint type, GLfloat size);
 
-    // Should be overridden for more complicated render needs
-    virtual void renderGeometry(GLuint VAO, GLuint shaderProgram);
-
+    void setSize(GLfloat size);
 };
 
 struct Triangles: public Geometry {
-    Triangles(vVertex vertices, vIndex indices, GLfloat size);
+    Triangles(vVertex &vertices, vIndex &indices, GLfloat size);
 };
 
 struct Points: public Geometry {
-    Points(vVertex vertices, vIndex indices, GLfloat size);
+    Points(vVertex &vertices, vIndex &indices, GLfloat size);
 };
 
 struct Lines: public Geometry {
-    Lines(vVertex vertices, vIndex indices, GLfloat size);
+    Lines(vVertex &vertices, vIndex &indices, GLfloat size);
 };
 
 #endif //CASTR_GEOMETRY_H

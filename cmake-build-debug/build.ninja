@@ -91,6 +91,27 @@ build CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj: CXX_COMPILER__CASTR_unscan
   OBJECT_DIR = CMakeFiles\CASTR.dir
   OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Window
 
+build CMakeFiles/CASTR.dir/src/Camera/Camera.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Camera/Camera.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Camera\Camera.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Camera
+
+build CMakeFiles/CASTR.dir/src/Entities/Player.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Entities/Player.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Entities\Player.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Entities
+
+build CMakeFiles/CASTR.dir/src/Entities/Entity.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/Entities/Entity.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\Entities\Entity.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\Entities
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CASTR
@@ -99,7 +120,7 @@ build CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj: CXX_COMPILER__CASTR_unscan
 #############################################
 # Link the executable CASTR.exe
 
-build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/src/main.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/src/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
+build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/src/main.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/src/Geometry/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj CMakeFiles/CASTR.dir/src/Window/Window.cpp.obj CMakeFiles/CASTR.dir/src/Camera/Camera.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Player.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Entity.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CASTR.dir
@@ -132,10 +153,514 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/Anderson/CLionProjects/CASTR/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target Google_Tests_run
+
+
+#############################################
+# Order-only phony target for Google_Tests_run
+
+build cmake_object_order_depends_target_Google_Tests_run: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
+
+build Google_tests/CMakeFiles/Google_Tests_run.dir/VectorTest.cpp.obj: CXX_COMPILER__Google_Tests_run_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/VectorTest.cpp || cmake_object_order_depends_target_Google_Tests_run
+  DEP_FILE = Google_tests\CMakeFiles\Google_Tests_run.dir\VectorTest.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest
+  OBJECT_DIR = Google_tests\CMakeFiles\Google_Tests_run.dir
+  OBJECT_FILE_DIR = Google_tests\CMakeFiles\Google_Tests_run.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Google_Tests_run
+
+
+#############################################
+# Link the executable Google_tests\Google_Tests_run.exe
+
+build Google_tests/Google_Tests_run.exe: CXX_EXECUTABLE_LINKER__Google_Tests_run_Debug Google_tests/CMakeFiles/Google_Tests_run.dir/VectorTest.cpp.obj | lib/libgtest.a lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
+  FLAGS = -g
+  LINK_LIBRARIES = -lsrc  lib/libgtest.a  lib/libgtest_main.a  lib/libgtest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = Google_tests\CMakeFiles\Google_Tests_run.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = Google_tests\Google_Tests_run.exe
+  TARGET_IMPLIB = Google_tests\libGoogle_Tests_run.dll.a
+  TARGET_PDB = Google_Tests_run.exe.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build Google_tests/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build Google_tests/edit_cache: phony Google_tests/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build Google_tests/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Anderson\CLionProjects\CASTR -BC:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build Google_tests/rebuild_cache: phony Google_tests/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build Google_tests/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Google_tests/CMakeFiles/install.util: CUSTOM_COMMAND Google_tests/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Google_tests/install: phony Google_tests/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Google_tests/CMakeFiles/install/local.util: CUSTOM_COMMAND Google_tests/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Google_tests/install/local: phony Google_tests/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Google_tests/CMakeFiles/install/strip.util: CUSTOM_COMMAND Google_tests/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Google_tests/install/strip: phony Google_tests/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/Anderson/CLionProjects/CASTR/Google_tests/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build Google_tests/lib/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build Google_tests/lib/edit_cache: phony Google_tests/lib/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build Google_tests/lib/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Anderson\CLionProjects\CASTR -BC:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/rebuild_cache: phony Google_tests/lib/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build Google_tests/lib/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Google_tests/lib/CMakeFiles/install.util: CUSTOM_COMMAND Google_tests/lib/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/install: phony Google_tests/lib/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Google_tests/lib/CMakeFiles/install/local.util: CUSTOM_COMMAND Google_tests/lib/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/install/local: phony Google_tests/lib/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Google_tests/lib/CMakeFiles/install/strip.util: CUSTOM_COMMAND Google_tests/lib/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/install/strip: phony Google_tests/lib/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gmock
+
+
+#############################################
+# Order-only phony target for gmock
+
+build cmake_object_order_depends_target_gmock: phony || cmake_object_order_depends_target_gtest
+
+build Google_tests/lib/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj: CXX_COMPILER__gmock_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/src/gmock-all.cc || cmake_object_order_depends_target_gmock
+  DEP_FILE = Google_tests\lib\googlemock\CMakeFiles\gmock.dir\src\gmock-all.cc.obj.d
+  FLAGS = -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include -IC:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/include -IC:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest
+  OBJECT_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock.dir
+  OBJECT_FILE_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gmock
+
+
+#############################################
+# Link the static library lib\libgmock.a
+
+build lib/libgmock.a: CXX_STATIC_LIBRARY_LINKER__gmock_Debug Google_tests/lib/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj || lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lib\libgmock.a
+  TARGET_PDB = gmock.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gmock_main
+
+
+#############################################
+# Order-only phony target for gmock_main
+
+build cmake_object_order_depends_target_gmock_main: phony || cmake_object_order_depends_target_gmock cmake_object_order_depends_target_gtest
+
+build Google_tests/lib/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj: CXX_COMPILER__gmock_main_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/src/gmock_main.cc || cmake_object_order_depends_target_gmock_main
+  DEP_FILE = Google_tests\lib\googlemock\CMakeFiles\gmock_main.dir\src\gmock_main.cc.obj.d
+  FLAGS = -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest
+  OBJECT_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock_main.dir
+  OBJECT_FILE_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock_main.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gmock_main
+
+
+#############################################
+# Link the static library lib\libgmock_main.a
+
+build lib/libgmock_main.a: CXX_STATIC_LIBRARY_LINKER__gmock_main_Debug Google_tests/lib/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj || lib/libgmock.a lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = Google_tests\lib\googlemock\CMakeFiles\gmock_main.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lib\libgmock_main.a
+  TARGET_PDB = gmock_main.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build Google_tests/lib/googlemock/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googlemock && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build Google_tests/lib/googlemock/edit_cache: phony Google_tests/lib/googlemock/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build Google_tests/lib/googlemock/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googlemock && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Anderson\CLionProjects\CASTR -BC:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googlemock/rebuild_cache: phony Google_tests/lib/googlemock/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build Google_tests/lib/googlemock/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Google_tests/lib/googlemock/CMakeFiles/install.util: CUSTOM_COMMAND Google_tests/lib/googlemock/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googlemock && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googlemock/install: phony Google_tests/lib/googlemock/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Google_tests/lib/googlemock/CMakeFiles/install/local.util: CUSTOM_COMMAND Google_tests/lib/googlemock/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googlemock && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googlemock/install/local: phony Google_tests/lib/googlemock/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Google_tests/lib/googlemock/CMakeFiles/install/strip.util: CUSTOM_COMMAND Google_tests/lib/googlemock/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googlemock && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googlemock/install/strip: phony Google_tests/lib/googlemock/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Order-only phony target for gtest
+
+build cmake_object_order_depends_target_gtest: phony || Google_tests/lib/googletest/CMakeFiles/gtest.dir
+
+build Google_tests/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj: CXX_COMPILER__gtest_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/src/gtest-all.cc || cmake_object_order_depends_target_gtest
+  DEP_FILE = Google_tests\lib\googletest\CMakeFiles\gtest.dir\src\gtest-all.cc.obj.d
+  FLAGS = -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include -IC:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/include -IC:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest
+  OBJECT_DIR = Google_tests\lib\googletest\CMakeFiles\gtest.dir
+  OBJECT_FILE_DIR = Google_tests\lib\googletest\CMakeFiles\gtest.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Link the static library lib\libgtest.a
+
+build lib/libgtest.a: CXX_STATIC_LIBRARY_LINKER__gtest_Debug Google_tests/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = Google_tests\lib\googletest\CMakeFiles\gtest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lib\libgtest.a
+  TARGET_PDB = gtest.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Order-only phony target for gtest_main
+
+build cmake_object_order_depends_target_gtest_main: phony || cmake_object_order_depends_target_gtest
+
+build Google_tests/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj: CXX_COMPILER__gtest_main_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/src/gtest_main.cc || cmake_object_order_depends_target_gtest_main
+  DEP_FILE = Google_tests\lib\googletest\CMakeFiles\gtest_main.dir\src\gtest_main.cc.obj.d
+  FLAGS = -g -std=c++23 -fdiagnostics-color=always -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/include -isystem C:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest
+  OBJECT_DIR = Google_tests\lib\googletest\CMakeFiles\gtest_main.dir
+  OBJECT_FILE_DIR = Google_tests\lib\googletest\CMakeFiles\gtest_main.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Link the static library lib\libgtest_main.a
+
+build lib/libgtest_main.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug Google_tests/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj || lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = Google_tests\lib\googletest\CMakeFiles\gtest_main.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lib\libgtest_main.a
+  TARGET_PDB = gtest_main.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build Google_tests/lib/googletest/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googletest && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build Google_tests/lib/googletest/edit_cache: phony Google_tests/lib/googletest/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build Google_tests/lib/googletest/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googletest && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Anderson\CLionProjects\CASTR -BC:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googletest/rebuild_cache: phony Google_tests/lib/googletest/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build Google_tests/lib/googletest/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Google_tests/lib/googletest/CMakeFiles/install.util: CUSTOM_COMMAND Google_tests/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googletest && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googletest/install: phony Google_tests/lib/googletest/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Google_tests/lib/googletest/CMakeFiles/install/local.util: CUSTOM_COMMAND Google_tests/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googletest && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googletest/install/local: phony Google_tests/lib/googletest/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Google_tests/lib/googletest/CMakeFiles/install/strip.util: CUSTOM_COMMAND Google_tests/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\Anderson\CLionProjects\CASTR\cmake-build-debug\Google_tests\lib\googletest && "C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Google_tests/lib/googletest/install/strip: phony Google_tests/lib/googletest/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
 
 build CASTR: phony CASTR.exe
+
+build Google_Tests_run: phony Google_tests/Google_Tests_run.exe
+
+build Google_Tests_run.exe: phony Google_tests/Google_Tests_run.exe
+
+build gmock: phony lib/libgmock.a
+
+build gmock_main: phony lib/libgmock_main.a
+
+build gtest: phony lib/libgtest.a
+
+build gtest_main: phony lib/libgtest_main.a
+
+build libgmock.a: phony lib/libgmock.a
+
+build libgmock_main.a: phony lib/libgmock_main.a
+
+build libgtest.a: phony lib/libgtest.a
+
+build libgtest_main.a: phony lib/libgtest_main.a
 
 # =============================================================================
 # Folder targets.
@@ -145,7 +670,35 @@ build CASTR: phony CASTR.exe
 #############################################
 # Folder: C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug
 
-build all: phony CASTR.exe
+build all: phony CASTR.exe Google_tests/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/Google_tests
+
+build Google_tests/all: phony Google_tests/Google_Tests_run.exe Google_tests/lib/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/Google_tests/lib
+
+build Google_tests/lib/all: phony Google_tests/lib/googlemock/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/Google_tests/lib/googlemock
+
+build Google_tests/lib/googlemock/all: phony lib/libgmock.a lib/libgmock_main.a Google_tests/lib/googletest/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/Anderson/CLionProjects/CASTR/cmake-build-debug/Google_tests/lib/googletest
+
+build Google_tests/lib/googletest/all: phony lib/libgtest.a lib/libgtest_main.a
 
 # =============================================================================
 # Built-in targets
@@ -154,14 +707,14 @@ build all: phony CASTR.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Users/Anderson/CLionProjects/CASTR/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPython3.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPython/Support.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Anderson/CLionProjects/CASTR/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/cmake/gmock.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/cmake/gmock_main.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/Config.cmake.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/gtest.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/gtest_main.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/internal_utils.cmake CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Users/Anderson/CLionProjects/CASTR/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
+build C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPython3.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPython/Support.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2023.2.2/bin/cmake/win/x64/share/cmake-3.26/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Anderson/CLionProjects/CASTR/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/cmake/gmock.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googlemock/cmake/gmock_main.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/CMakeLists.txt C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/Config.cmake.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/gtest.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/gtest_main.pc.in C$:/Users/Anderson/CLionProjects/CASTR/Google_tests/lib/googletest/cmake/internal_utils.cmake CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
 
 
 #############################################

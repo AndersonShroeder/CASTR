@@ -10,6 +10,7 @@ set(GLFW_DLL_PATH "${CMAKE_SOURCE_DIR}/lib/glfw3.dll")
 # Add the directory containing GLFW headers to include path
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
+add_subdirectory(Google_tests)
 
 add_library(GLFW SHARED IMPORTED)
 set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
@@ -28,6 +29,13 @@ add_executable(CASTR src/main.cpp
         src/Rendering/Shader.h
         src/Window/Window.cpp
         src/Window/Window.h
+        src/Vector/Vector.h
+        src/Camera/Camera.cpp
+        src/Entities/Entity.h
+        src/Entities/Player.cpp
+        src/Entities/Player.h
+        src/Input/InputReader.h
+        src/Entities/Entity.cpp
 )
 
 # Link GLFW to your executable

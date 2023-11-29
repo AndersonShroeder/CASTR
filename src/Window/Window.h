@@ -9,7 +9,6 @@
 #include "GLFW/glfw3.h"
 
 class Window {
-    GLFWwindow* window;
 public:
     Window(int width, int height, char* name);
 
@@ -20,6 +19,8 @@ public:
     bool shouldClose();
 
     void swapBuffers();
+
+    GLFWwindow* window;
 };
 
 
