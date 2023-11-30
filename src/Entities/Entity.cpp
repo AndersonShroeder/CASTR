@@ -4,11 +4,11 @@
 
 #include "Entity.h"
 
-void Entity::updatePositionInfo(PositionInfo positionInfo) {
+void Entity::updatePositionInfo(PositionInfo2D positionInfo) {
     this->positionInfo = positionInfo;
 }
 
-PositionInfo &Entity::getPositionInfo() {
+PositionInfo2D &Entity::getPositionInfo() {
     return this->positionInfo;
 }
 

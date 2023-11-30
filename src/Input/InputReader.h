@@ -1,26 +1,47 @@
-//
 // Created by Anderson on 11/28/2023.
-//
+
+/**
+ * @file InputReader.h
+ * @brief Declaration of the InputReader class and associated Keys structure for handling input.
+ */
 
 #include "../imports.h"
 
 #ifndef CASTR_INPUTREADER_H
 #define CASTR_INPUTREADER_H
 
+/**
+ * @brief Structure to store the state of various keys.
+ */
 struct Keys
- {
-     bool e_key = false;
-     bool q_key = false;
-     bool w_key = false;
-     bool a_key = false;
-     bool s_key = false;
-     bool d_key = false;
-     bool shift_key = false;
- };
+{
+    bool e_key = false; /**< State of the 'E' key. */
+    bool q_key = false; /**< State of the 'Q' key. */
+    bool w_key = false; /**< State of the 'W' key. */
+    bool a_key = false; /**< State of the 'A' key. */
+    bool s_key = false; /**< State of the 'S' key. */
+    bool d_key = false; /**< State of the 'D' key. */
+    bool shift_key = false; /**< State of the left shift key. */
+};
 
+/**
+ * @brief Class for handling input events and updating key states.
+ */
 class InputReader {
 public:
+    /**
+     * @brief Static instance of the Keys structure to store key states.
+     */
     static Keys keys;
+
+    /**
+     * @brief Function to read GLFW key events and update key states accordingly.
+     * @param window The GLFW window.
+     * @param key The pressed/released key.
+     * @param scancode The system-specific scancode of the key.
+     * @param action The key action (GLFW_PRESS, GLFW_RELEASE, GLFW_REPEAT).
+     * @param mods Bit field describing which modifier keys were held down.
+     */
     static void readKeys(GLFWwindow *window, int key, int scancode, int action, int mods) {
         bool truthVal = action != GLFW_RELEASE;
         switch(key) {
@@ -35,6 +56,9 @@ public:
         }
     }
 
+    /**
+     * @brief Pure virtual function for reading input. Must be implemented by derived classes.
+     */
     virtual void readInput() = 0;
 };
 

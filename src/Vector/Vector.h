@@ -1,12 +1,20 @@
-//
 // Created by Anderson on 11/15/2023.
-//
+
+/**
+ * @file Vector.h
+ * @brief Declaration of the Vector class template for N-dimensional vectors and related operations.
+ */
 
 #ifndef CASTR_VECTOR_H
 #define CASTR_VECTOR_H
 
 #include "../imports.h"
 
+/**
+ * @brief Template class for N-dimensional vectors and related operations.
+ * @tparam T The data type of the vector elements.
+ * @tparam N The size or dimensionality of the vector.
+ */
 template <typename T, std::size_t N>
 struct Vector {
     // Constructors
@@ -21,13 +29,13 @@ struct Vector {
     inline Vector operator*(T s);
     inline Vector operator/(T s);
 
-    // Element wise Operations
+    // Element-wise Operations
     inline Vector operator+(Vector v);
     inline Vector operator-(Vector v);
     inline Vector operator*(Vector v);
     inline Vector operator/(Vector v);
 
-    // Element Wise Assignment Operations
+    // Element-wise Assignment Operations
     inline Vector operator+=(Vector v);
     inline Vector operator-=(Vector v);
     inline Vector operator*=(Vector v);
@@ -40,6 +48,10 @@ struct Vector {
     // Vector Operations
     inline T magnitude();
 
+    /**
+     * @brief Converts the vector to a string for easy printing.
+     * @return The string representation of the vector.
+     */
     std::string toString();
 
 private:
@@ -49,7 +61,6 @@ private:
     // Size of vector
     std::size_t size = N;
 };
-
 
 template<typename T, std::size_t N>
 std::string Vector<T, N>::toString() {
@@ -274,9 +285,22 @@ Vector<T, N>::Vector(T initList[N]) {
 // Typedefs
 ///////////
 
+/**
+ * @brief Typedef for a 2D integer vector.
+ */
 typedef Vector<int, 2> vInt2d;
+
+/**
+ * @brief Typedef for a 2D double vector.
+ */
 typedef Vector<double, 2> vDouble2d;
 
+/**
+ * @brief Rotates a 2D double vector by a specified angle in degrees.
+ * @param v The 2D vector to be rotated.
+ * @param degrees The angle of rotation in degrees.
+ * @return The rotated 2D vector.
+ */
 vDouble2d rotate2D(vDouble2d &v, double degrees);
 
 #endif //CASTR_VECTOR_H

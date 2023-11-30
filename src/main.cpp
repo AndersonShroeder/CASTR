@@ -7,6 +7,40 @@
 #include "Vector/Vector.h"
 #include "Entities/Entity.h"
 #include "Entities/Player.h"
+#include "Camera/Camera.h"
+
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 1920
+#define screenHeight 1080
+
+int worldMap[mapWidth][mapHeight]=
+        {
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+        };
 
 void init(){
     // Initialize GLFW
@@ -23,7 +57,7 @@ Keys InputReader::keys;
 int main() {
     // Initialization
     init();
-    Window window{800, 800, "Window 1"};
+    Window window{screenWidth, screenHeight, "Window 1"};
     window.makeCurrentContext();
     gladLoadGL();
 
@@ -36,23 +70,20 @@ int main() {
 
     // Setup Renderer
     BasicShapeRenderer renderer;
+    RayCastRenderer caster;
     Shader shader{vertexShaderSource, fragmentShaderSource};
 
     // Setup Player
-    PositionInfo info{{0, 0}, {-1, 0}, {0, .66}};
+    PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
+    Camera cam{};
     Player player;
     player.updatePositionInfo(info);
+    cam.subscribe(player);
 
     while (!window.shouldClose()) {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Input Reading demo
-        vDouble2d coord = player.getPositionInfo().pos + player.getPositionInfo().dir;
-        vVertex v{static_cast<float>(player.getPositionInfo().pos[0]), static_cast<float>(player.getPositionInfo().pos[1]), 0, 1, 0 ,0,
-                  static_cast<float>(coord[0]), static_cast<float>(coord[1]), 0, 1, 0, 0};
-        vIndex i{0, 1};
-
-        Lines l{v, i, 10};
+        Lines l = caster.DDA(screenWidth, screenHeight, cam.getPositionInfo(), worldMap);
         renderer.render(l, shader, VAO);
         player.readInput();
 

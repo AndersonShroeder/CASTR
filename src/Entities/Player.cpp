@@ -4,14 +4,6 @@
 
 #include "Player.h"
 
-bool e_key = false;
-bool q_key = false;
-bool w_key = false;
-bool a_key = false;
-bool s_key = false;
-bool d_key = false;
-bool shift_key = false;
-
 void Player::readInput() {
     if (keys.e_key) {
         this->positionInfo.dir = rotate2D(this->positionInfo.dir, -1 * rotationSpeed);

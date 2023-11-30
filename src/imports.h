@@ -5,7 +5,7 @@
 #ifndef CASTR_IMPORTS_H
 #define CASTR_IMPORTS_H
 
-#include <math.h>
+#include <cmath>
 #include <cstdlib>
 #include <initializer_list>
 #include <stdexcept>

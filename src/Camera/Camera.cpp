@@ -5,10 +5,10 @@
 #include "Camera.h"
 
 void Camera::subscribe(Entity &entity) {
-    this->subscribed = entity;
+    this->positionInfo = &(entity.getPositionInfo());
 }
 
-void Camera::visitSubscribed() {
-    this->positionInfo = subscribed.getPositionInfo();
+PositionInfo2D Camera::getPositionInfo() {
+    return *(this->positionInfo);
 }
 
