@@ -1,6 +1,9 @@
-//
 // Created by Anderson on 11/14/2023.
-//
+
+/**
+ * @file Shaders.h
+ * @brief Declaration of vertex and fragment shader source code.
+ */
 
 #ifndef CASTR_SHADERS_H
 #define CASTR_SHADERS_H
@@ -15,6 +18,7 @@ const char *vertexShaderSource = "#version 330 core\n"
                                  "   gl_Position = vec4(aPos, 1.0);\n"
                                  "	vertexColor = aColor;\n"
                                  "}\0";
+
 // Fragment Shader source code
 const char *fragmentShaderSource = "#version 330 core\n"
                                    "in vec3 vertexColor;\n"
@@ -23,4 +27,5 @@ const char *fragmentShaderSource = "#version 330 core\n"
                                    "{\n"
                                    "   FragColor = vec4(vertexColor, 1.0);\n"
                                    "}\n\0";
+
 #endif //CASTR_SHADERS_H

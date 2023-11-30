@@ -5,6 +5,10 @@
 #ifndef CASTR_IMPORTS_H
 #define CASTR_IMPORTS_H
 
+#include <cmath>
+#include <cstdlib>
+#include <initializer_list>
+#include <stdexcept>
 #include <iostream>
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"

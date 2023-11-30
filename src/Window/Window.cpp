@@ -15,15 +15,15 @@ void Window::initWindowSettings() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-void Window::makeCurrentContext() {
+void Window::makeCurrentContext() const {
     glfwMakeContextCurrent(this->window);
 }
 
-bool Window::shouldClose() {
+bool Window::shouldClose() const {
     return glfwWindowShouldClose(this->window);
 }
 
-void Window::swapBuffers() {
+void Window::swapBuffers() const {
     glfwSwapBuffers(this->window);
 }
 

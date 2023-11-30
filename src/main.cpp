@@ -4,6 +4,43 @@
 #include "Rendering/Renderer.h"
 #include "Rendering/Shader.h"
 #include "Window/Window.h"
+#include "Vector/Vector.h"
+#include "Entities/Entity.h"
+#include "Entities/Player.h"
+#include "Camera/Camera.h"
+
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 1920
+#define screenHeight 1080
+
+int worldMap[mapWidth][mapHeight]=
+        {
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+        };
 
 void init(){
     // Initialize GLFW
@@ -16,27 +53,40 @@ void init(){
     glfwSwapInterval(1);
 }
 
+Keys InputReader::keys;
 int main() {
+    // Initialization
     init();
-
-    Window window{800, 800, "Window 1"};
+    Window window{screenWidth, screenHeight, "Window 1"};
     window.makeCurrentContext();
-
-    // Load OpenGL function pointers using GLAD
     gladLoadGL();
 
-    Triangles t = Triangles({0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-                                    0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                                    1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f}, {0, 1, 2}, 10);
+    // Setup Input reading
+    glfwSetKeyCallback(window.window, InputReader::readKeys);
 
+    // Setup VAO
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
 
+    // Setup Renderer
     BasicShapeRenderer renderer;
+    RayCastRenderer caster;
     Shader shader{vertexShaderSource, fragmentShaderSource};
 
+    // Setup Player
+    PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
+    Camera cam{};
+    Player player;
+    player.updatePositionInfo(info);
+    cam.subscribe(player);
+
     while (!window.shouldClose()) {
-        renderer.render(t, shader, VAO);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        Lines l = caster.DDA(screenWidth, screenHeight, cam.getPositionInfo(), worldMap);
+        renderer.render(l, shader, VAO);
+        player.readInput();
+
         window.swapBuffers();
         glfwPollEvents();
     }
