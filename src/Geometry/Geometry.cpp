@@ -21,3 +21,16 @@ Points::Points(vVertex &vertices, vIndex &indices, GLfloat size) :
 
 Lines::Lines(vVertex &vertices, vIndex &indices, GLfloat size) :
         Geometry(vertices, indices, GL_LINES, size) {}
+
+TextureQuad::TextureQuad(vVertex &vertices, int height, int width, GLubyte* textureData) {
+    this->height = height;
+    this->width = width;
+    this->textureData = textureData;
+    this->vertices = vertices;
+}
+
+void TextureQuad::clearTextureData() {
+    for (int i = 0; i < this->width * this->height * 3; i++) {
+        this->textureData[i] = 0;
+    }
+}

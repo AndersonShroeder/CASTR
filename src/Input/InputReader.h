@@ -61,5 +61,4 @@ public:
      */
     virtual void readInput() = 0;
 };
-
 #endif //CASTR_INPUTREADER_H

@@ -1,18 +1,17 @@
+#include <iostream>
 #include "imports.h"
-#include "Geometry/Geometry.h"
-#include "Shaders/shaders.h"
 #include "Rendering/Renderer.h"
-#include "Rendering/Shader.h"
-#include "Window/Window.h"
-#include "Vector/Vector.h"
-#include "Entities/Entity.h"
-#include "Entities/Player.h"
 #include "Camera/Camera.h"
+#include "Entities/Player.h"
+#include "Window/Window.h"
+#include "Shaders/shaders.h"
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
+#define screenWidth 800
+#define screenHeight 800
+#define texWidth 64
+#define texHeight 64
 
 int worldMap[mapWidth][mapHeight]=
         {
@@ -53,6 +52,7 @@ void init(){
     glfwSwapInterval(1);
 }
 
+
 Keys InputReader::keys;
 int main() {
     // Initialization
@@ -67,11 +67,22 @@ int main() {
     // Setup VAO
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    // Generate an array of RGB pixel data
+    vVertex vertices = {
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+            1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            1.0f, 1.0f, 0.0f, 1.0f, 1.0f
+    };
+    GLubyte* pixels = new GLubyte[800 * 800 * 3];
+    TextureQuad quad{vertices, 800, 800, pixels};
 
     // Setup Renderer
-    BasicShapeRenderer renderer;
-    RayCastRenderer caster;
+    RayCastRenderer caster(quad);
     Shader shader{vertexShaderSource, fragmentShaderSource};
+    shader.useShader();
 
     // Setup Player
     PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
@@ -80,20 +91,31 @@ int main() {
     player.updatePositionInfo(info);
     cam.subscribe(player);
 
+    // Main loop
     while (!window.shouldClose()) {
+        // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT);
 
-        Lines l = caster.DDA(screenWidth, screenHeight, cam.getPositionInfo(), worldMap);
-        renderer.render(l, shader, VAO);
+        caster.render(shader, VAO, cam.getPositionInfo(),worldMap);
         player.readInput();
 
+        // Swap buffers
         window.swapBuffers();
+
+        // Poll for and process events
         glfwPollEvents();
     }
-    glDeleteVertexArrays(1, &VAO);
 
-    // Set the OpenGL viewport to match the window dimensions
-    glViewport(0, 0, 800, 800);
+    // Clean up
+//    glDeleteTextures(1, &textureID);
+    glDeleteVertexArrays(1, &VAO);
+//    glDeleteBuffers(1, &VBO);
+//    glDeleteProgram(shaderProgram);
+
+    // Terminate GLFW
+    glfwTerminate();
+
+    delete[] pixels;
 
     return 0;
 }

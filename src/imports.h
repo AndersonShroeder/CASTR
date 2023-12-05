@@ -13,5 +13,6 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include <vector>
+#include <cstring>
 
 #endif //CASTR_IMPORTS_H

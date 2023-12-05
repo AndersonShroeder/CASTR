@@ -85,4 +85,14 @@ struct Lines : public Geometry {
     Lines(vVertex &vertices, vIndex &indices, GLfloat size);
 };
 
+struct TextureQuad {
+    int height;
+    int width;
+    GLubyte* textureData;
+    vVertex vertices;
+
+    TextureQuad(vVertex &vertices, int height, int width, GLubyte* textureData);
+    void clearTextureData();
+};
+
 #endif //CASTR_GEOMETRY_H

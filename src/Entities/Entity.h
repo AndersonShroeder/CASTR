@@ -25,8 +25,8 @@ struct PositionInfo2D {
 class Entity {
 protected:
     PositionInfo2D positionInfo; /**< Position information of the entity in 2D space. */
-    double moveSpeed = 0.002; /**< Movement speed of the entity. */
-    double rotationSpeed = 0.002; /**< Rotation speed of the entity. */
+    double moveSpeed = 0.02; /**< Movement speed of the entity. */
+    double rotationSpeed = 0.02; /**< Rotation speed of the entity. */
 
 public:
     /**
