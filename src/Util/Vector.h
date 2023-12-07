@@ -295,6 +295,9 @@ typedef Vector<int, 2> vInt2d;
  */
 typedef Vector<double, 2> vDouble2d;
 
+typedef Vector<int, 3> vInt3d;
+typedef Vector<double, 3> vDouble3d;
+
 /**
  * @brief Rotates a 2D double vector by a specified angle in degrees.
  * @param v The 2D vector to be rotated.

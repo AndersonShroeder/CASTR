@@ -9,10 +9,10 @@
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
-#define resolutionWidth 1920
-#define resolutionHeight 1080
+#define screenWidth 800
+#define screenHeight 800
+#define resolutionWidth 800
+#define resolutionHeight 800
 #define texWidth 64
 #define texHeight 64
 
@@ -80,23 +80,32 @@ int main() {
     Rendering::Shader shader{vertexShaderSource, fragmentShaderSource};
     shader.useShader();
 
-    // Setup Player
-    Entities::PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
-    Entities::Player player;
-    player.updatePositionInfo(info);
+    Entities::PositionInfo3D info3D{{70, -110, 20}, 0, 0};
+    Entities::Player3D player;
+    player.updatePositionInfo(info3D);
 
-    // Establish Rendering POV -> POV of player
-    Entities::Camera cam{};
-    cam.subscribe(player);
+//    // Setup Player
+//    Entities::PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
+//    Entities::Player player;
+//    player.updatePositionInfo(info);
+
+//    // Establish Rendering POV -> POV of player
+//    Entities::Camera cam{};
+//    cam.subscribe(player);
 
     // Setup Raycasting logic
     GameState::MapData map{worldMap};
-    GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight, map);
+//    GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight, map);
+    GameState::True3DLogic doom(quad);
 
     // Main loop
     while (!window.shouldClose()) {
         // Render quad after raycasting
-        rayCaster.DDA(player.getPositionInfo());
+        for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
+            quad.textureData[i * 3 + 2] = 255;
+        }
+//        rayCaster.DDA(player.getPositionInfo());
+        doom.draw3D(player.getPositionInfo());
         renderer.render(quad, shader, VAO);
 
         // Clear Quad

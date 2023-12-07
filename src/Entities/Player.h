@@ -21,5 +21,10 @@ namespace Entities {
          */
         void readInput() override;
     };
+
+    class Player3D : public GameState::InputReader, public Entity3D {
+    public:
+        void readInput() override;
+    };
 }
 #endif //CASTR_PLAYER_H

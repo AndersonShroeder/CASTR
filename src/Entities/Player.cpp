@@ -20,4 +20,39 @@ namespace Entities {
 //    if (keys.d_key) this->positionInfo.pos += (this->positionInfo.dir) * this->getMoveSpeed();
         if (keys.shift_key);
     }
+
+    void Player3D::readInput() {
+        double dx = sin(this->positionInfo3D.angle * M_PI / 180.0);
+        double dy = cos(this->positionInfo3D.angle * M_PI / 180.0);
+
+        if (keys.e_key) {
+            this->positionInfo3D.angle += 1;
+            if (this->positionInfo3D.angle >= 360) this->positionInfo3D.angle -= 360;
+        }
+
+        if (keys.q_key) {
+            this->positionInfo3D.angle -= 1;
+            if (this->positionInfo3D.angle < 0) this->positionInfo3D.angle += 360;
+        }
+
+        if (keys.w_key) {
+            this->positionInfo3D.pos[0] += dx;
+            this->positionInfo3D.pos[1] += dy;
+        }
+
+        if (keys.s_key) {
+            this->positionInfo3D.pos[0] -= dx;
+            this->positionInfo3D.pos[1] -= dy;
+        }
+
+        if (keys.a_key) {
+            this->positionInfo3D.pos[0] -= dy;
+            this->positionInfo3D.pos[1] += dx;
+        }
+
+        if (keys.d_key) {
+            this->positionInfo3D.pos[0] += dy;
+            this->positionInfo3D.pos[1] -= dx;
+        }
+    }
 }

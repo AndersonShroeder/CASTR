@@ -13,4 +13,11 @@ namespace Entities {
         return this->positionInfo;
     }
 
+    void Entity3D::updatePositionInfo(PositionInfo3D positionInfo) {
+        this->positionInfo3D = positionInfo;
+    }
+
+    PositionInfo3D &Entity3D::getPositionInfo() {
+        return this->positionInfo3D;
+    }
 }

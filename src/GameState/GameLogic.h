@@ -41,6 +41,19 @@ namespace GameState {
         MapData &worldMap;
         std::vector<GLuint> texture[8];
     };
+
+    class True3DLogic {
+    public:
+        explicit True3DLogic(Rendering::TextureQuad &quad);
+        void draw3D(Entities::PositionInfo3D positionInfo3D);
+
+    private:
+        Rendering::TextureQuad &quad;
+
+        int interpolate(const std::pair<int, int> &v1, const std::pair<int, int> &v2, int y);
+
+        void drawLine(int x1, int y1, int x2, int y2);
+    };
 }
 
 #endif //CASTR_GAMELOGIC_H

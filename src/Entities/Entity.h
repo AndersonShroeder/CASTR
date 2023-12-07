@@ -20,6 +20,12 @@ namespace Entities {
         vDouble2d plane; /**< Plane vector in 2D space. */
     };
 
+    struct PositionInfo3D {
+        vDouble3d pos; /**< Position vector in 2D space. */
+        double angle;
+        int upDown;
+    };
+
 /**
  * @brief Class representing an entity in a 2D space with position and movement information.
  */
@@ -41,6 +47,15 @@ namespace Entities {
          * @param positionInfo The new position information to set.
          */
         void updatePositionInfo(PositionInfo2D positionInfo);
+    };
+
+    class Entity3D {
+    protected:
+        PositionInfo3D positionInfo3D;
+
+    public:
+        PositionInfo3D &getPositionInfo();
+        void updatePositionInfo(PositionInfo3D positionInfo);
     };
 }
 #endif //CASTR_ENTITY_H
