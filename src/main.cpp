@@ -1,44 +1,48 @@
 #include <iostream>
 #include "imports.h"
 #include "Rendering/Renderer.h"
-#include "Camera/Camera.h"
+#include "Entities/Camera.h"
 #include "Entities/Player.h"
-#include "Window/Window.h"
-#include "Shaders/shaders.h"
+#include "GameState//Window.h"
+#include "shaders.h"
+#include "GameState/GameLogic.h"
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 800
-#define screenHeight 800
+#define screenWidth 1920
+#define screenHeight 1080
+#define resolutionWidth 1920
+#define resolutionHeight 1080
 #define texWidth 64
 #define texHeight 64
 
-int worldMap[mapWidth][mapHeight]=
+
+std::vector<std::vector<int>> worldMap=
         {
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+                {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
+                {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+                {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+                {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+                {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+                {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
+                {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
+                {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
+                {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
+                {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
+                {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
+                {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
+                {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
+                {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
+                {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
+                {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
+                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
+                {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
+                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
+                {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
+                {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
+                {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
+                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
+                {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
         };
 
 void init(){
@@ -46,76 +50,72 @@ void init(){
     glfwInit();
 
     // Initialize window settings
-    Window::initWindowSettings();
+    GameState::Window::initWindowSettings();
 
     // Set the swap interval (vertical sync) to 1 (enabled)
     glfwSwapInterval(1);
 }
 
 
-Keys InputReader::keys;
+GameState::Keys GameState::InputReader::keys;
 int main() {
     // Initialization
     init();
-    Window window{screenWidth, screenHeight, "Window 1"};
+    GameState::Window window{screenWidth, screenHeight, 3, "GameState 1"};
     window.makeCurrentContext();
     gladLoadGL();
 
     // Setup Input reading
-    glfwSetKeyCallback(window.window, InputReader::readKeys);
+    glfwSetKeyCallback(window.getWindow(), GameState::InputReader::readKeys);
 
     // Setup VAO
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    // Generate an array of RGB pixel data
-    vVertex vertices = {
-            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-            1.0f, 1.0f, 0.0f, 1.0f, 1.0f
-    };
-    GLubyte* pixels = new GLubyte[800 * 800 * 3];
-    TextureQuad quad{vertices, 800, 800, pixels};
+    Rendering::TextureQuad quad{resolutionWidth, resolutionHeight, 3};
 
     // Setup Renderer
-    RayCastRenderer caster(quad);
-    Shader shader{vertexShaderSource, fragmentShaderSource};
+    Rendering::TextureRenderer renderer;
+    Rendering::Shader shader{vertexShaderSource, fragmentShaderSource};
     shader.useShader();
 
     // Setup Player
-    PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
-    Camera cam{};
-    Player player;
+    Entities::PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
+    Entities::Player player;
     player.updatePositionInfo(info);
+
+    // Establish Rendering POV -> POV of player
+    Entities::Camera cam{};
     cam.subscribe(player);
+
+    // Setup Raycasting logic
+    GameState::MapData map{worldMap};
+    GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight, map);
 
     // Main loop
     while (!window.shouldClose()) {
-        // Clear the screen
-        glClear(GL_COLOR_BUFFER_BIT);
+        // Render quad after raycasting
+        rayCaster.DDA(player.getPositionInfo());
+        renderer.render(quad, shader, VAO);
 
-        caster.render(shader, VAO, cam.getPositionInfo(),worldMap);
+        // Clear Quad
+        quad.clearTextureData();
+
         player.readInput();
-
-        // Swap buffers
         window.swapBuffers();
-
-        // Poll for and process events
         glfwPollEvents();
     }
 
+
+    glDeleteVertexArrays(1, &VAO);
     // Clean up
 //    glDeleteTextures(1, &textureID);
-    glDeleteVertexArrays(1, &VAO);
 //    glDeleteBuffers(1, &VBO);
 //    glDeleteProgram(shaderProgram);
 
     // Terminate GLFW
     glfwTerminate();
-
-    delete[] pixels;
 
     return 0;
 }

@@ -8,18 +8,18 @@
 #ifndef CASTR_PLAYER_H
 #define CASTR_PLAYER_H
 
-#include "../Input/InputReader.h"
+#include "../GameState/InputReader.h"
 #include "Entity.h"
-
+namespace Entities {
 /**
  * @brief Class representing a player entity, derived from InputReader and Entity.
  */
-class Player : public InputReader, public Entity {
-public:
-    /**
-     * @brief Implementation of the readInput function for handling player input.
-     */
-    void readInput() override;
-};
-
+    class Player : public GameState::InputReader, public Entity {
+    public:
+        /**
+         * @brief Implementation of the readInput function for handling player input.
+         */
+        void readInput() override;
+    };
+}
 #endif //CASTR_PLAYER_H

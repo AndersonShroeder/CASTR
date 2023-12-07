@@ -18,25 +18,27 @@ set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
 add_executable(CASTR src/main.cpp
         src/Rendering/Renderer.cpp
         src/Rendering/Renderer.h
-        src/Geometry/Geometry.cpp
-        src/Geometry/Geometry.h
+        src/Rendering/Geometry.cpp
+        src/Rendering/Geometry.h
         include/glad/glad.h
         include/KHR/khrplatform.h
         include/glad/glad.c
         src/imports.h
-        src/Shaders/shaders.h
+        src/shaders.h
         src/Rendering/Shader.cpp
         src/Rendering/Shader.h
-        src/Window/Window.cpp
-        src/Window/Window.h
-        src/Vector/Vector.h
-        src/Camera/Camera.cpp
+        src/GameState/Window.cpp
+        src/GameState/Window.h
+        src/Util/Vector.h
+        src/Entities/Camera.cpp
         src/Entities/Entity.h
         src/Entities/Player.cpp
         src/Entities/Player.h
-        src/Input/InputReader.h
+        src/GameState/InputReader.h
         src/Entities/Entity.cpp
-        src/Vector/Vector.cpp
+        src/Util/Vector.cpp
+        src/GameState/GameLogic.cpp
+        src/GameState/GameLogic.h
 )
 
 # Link GLFW to your executable

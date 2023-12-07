@@ -345,9 +345,9 @@ GLFWAPI RRCrtc glfwGetX11Adapter(GLFWmonitor* monitor);
  */
 GLFWAPI RROutput glfwGetX11Monitor(GLFWmonitor* monitor);
 
-/*! @brief Returns the `Window` of the specified window.
+/*! @brief Returns the `GameState` of the specified window.
  *
- *  @return The `Window` of the specified window, or `None` if an
+ *  @return The `GameState` of the specified window, or `None` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
@@ -359,7 +359,7 @@ GLFWAPI RROutput glfwGetX11Monitor(GLFWmonitor* monitor);
  *
  *  @ingroup native
  */
-GLFWAPI Window glfwGetX11Window(GLFWwindow* window);
+GLFWAPI GameState glfwGetX11Window(GLFWwindow* window);
 
 /*! @brief Sets the current primary selection to the specified string.
  *

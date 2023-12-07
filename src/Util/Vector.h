@@ -1,8 +1,8 @@
 // Created by Anderson on 11/15/2023.
 
 /**
- * @file Vector.h
- * @brief Declaration of the Vector class template for N-dimensional vectors and related operations.
+ * @file Util.h
+ * @brief Declaration of the Util class template for N-dimensional vectors and related operations.
  */
 
 #ifndef CASTR_VECTOR_H
@@ -45,7 +45,7 @@ struct Vector {
     inline T& operator[](size_t index);
     inline T sum();
 
-    // Vector Operations
+    // Util Operations
     inline T magnitude();
 
     /**
@@ -55,7 +55,7 @@ struct Vector {
     std::string toString();
 
 private:
-    // Vector elements
+    // Util elements
     T elements[N];
 
     // Size of vector
@@ -239,7 +239,7 @@ T Vector<T, N>::sum() {
 
 
 ////////////////////
-// Vector Operations
+// Util Operations
 ////////////////////
 
 template<typename T, std::size_t N>

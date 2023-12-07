@@ -4,11 +4,13 @@
 
 #include "Entity.h"
 
-void Entity::updatePositionInfo(PositionInfo2D positionInfo) {
-    this->positionInfo = positionInfo;
-}
+namespace Entities {
+    void Entity::updatePositionInfo(PositionInfo2D positionInfo) {
+        this->positionInfo = positionInfo;
+    }
 
-PositionInfo2D &Entity::getPositionInfo() {
-    return this->positionInfo;
-}
+    PositionInfo2D &Entity::getPositionInfo() {
+        return this->positionInfo;
+    }
 
+}
