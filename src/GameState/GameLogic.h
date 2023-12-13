@@ -9,18 +9,22 @@
 #include <cstddef>
 #include "../Entities/Entity.h"
 #include "../Rendering/Geometry.h"
+#include "MapData.h"
 
 namespace GameState {
-    struct MapData {
+    struct Mapp {
         std::vector<std::vector<int>> map;
         std::size_t rows = map.size();
         std::size_t cols = map.at(0).size();
     };
 
+    class GameLogic {
+
+    };
+
     class RayCasterLogic {
     public:
-        explicit RayCasterLogic(Rendering::TextureQuad &quad, int texWidth, int texHeight,
-                                MapData &worldMap);
+        explicit RayCasterLogic(Rendering::TextureQuad &quad, int texWidth, int texHeight);
 
         /**
          * @brief Performs raycasting and generates Lines for rendering.
@@ -32,13 +36,13 @@ namespace GameState {
          */
         void DDA(Entities::PositionInfo2D positionInfo);
 
-        void setMapData(MapData &mapData);
+        void changeMap(const std::string& filePath);
 
     private:
         Rendering::TextureQuad &quad;
         int texWidth, texHeight;
 //    TextureData textureData;
-        MapData &worldMap;
+        GameState::RayCasterMapData worldMap{};
         std::vector<GLuint> texture[8];
     };
 
@@ -52,7 +56,9 @@ namespace GameState {
 
         int interpolate(const std::pair<int, int> &v1, const std::pair<int, int> &v2, int y);
 
-        void drawLine(int x1, int y1, int x2, int y2);
+        void drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2);
+
+        void clipBehindPlayer(int *x1, int *y1, int *z1, int x2, int y2, int z2);
     };
 }
 

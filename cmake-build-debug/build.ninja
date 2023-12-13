@@ -126,6 +126,13 @@ build CMakeFiles/CASTR.dir/src/GameState/GameLogic.cpp.obj: CXX_COMPILER__CASTR_
   OBJECT_DIR = CMakeFiles\CASTR.dir
   OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\GameState
 
+build CMakeFiles/CASTR.dir/src/GameState/MapData.cpp.obj: CXX_COMPILER__CASTR_unscanned_Debug C$:/Users/Anderson/CLionProjects/CASTR/src/GameState/MapData.cpp || cmake_object_order_depends_target_CASTR
+  DEP_FILE = CMakeFiles\CASTR.dir\src\GameState\MapData.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Anderson/CLionProjects/CASTR/include
+  OBJECT_DIR = CMakeFiles\CASTR.dir
+  OBJECT_FILE_DIR = CMakeFiles\CASTR.dir\src\GameState
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CASTR
@@ -134,7 +141,7 @@ build CMakeFiles/CASTR.dir/src/GameState/GameLogic.cpp.obj: CXX_COMPILER__CASTR_
 #############################################
 # Link the executable CASTR.exe
 
-build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/src/main.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj CMakeFiles/CASTR.dir/src/GameState/Window.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Camera.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Player.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Entity.cpp.obj CMakeFiles/CASTR.dir/src/Util/Vector.cpp.obj CMakeFiles/CASTR.dir/src/GameState/GameLogic.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
+build CASTR.exe: CXX_EXECUTABLE_LINKER__CASTR_Debug CMakeFiles/CASTR.dir/src/main.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Renderer.cpp.obj CMakeFiles/CASTR.dir/src/Rendering/Geometry.cpp.obj CMakeFiles/CASTR.dir/include/glad/glad.c.obj CMakeFiles/CASTR.dir/src/Rendering/Shader.cpp.obj CMakeFiles/CASTR.dir/src/GameState/Window.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Camera.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Player.cpp.obj CMakeFiles/CASTR.dir/src/Entities/Entity.cpp.obj CMakeFiles/CASTR.dir/src/Util/Vector.cpp.obj CMakeFiles/CASTR.dir/src/GameState/GameLogic.cpp.obj CMakeFiles/CASTR.dir/src/GameState/MapData.cpp.obj | C$:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/Anderson/CLionProjects/CASTR/lib/libglfw3dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CASTR.dir

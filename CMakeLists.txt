@@ -39,6 +39,8 @@ add_executable(CASTR src/main.cpp
         src/Util/Vector.cpp
         src/GameState/GameLogic.cpp
         src/GameState/GameLogic.h
+        src/GameState/MapData.cpp
+        src/GameState/MapData.h
 )
 
 # Link GLFW to your executable

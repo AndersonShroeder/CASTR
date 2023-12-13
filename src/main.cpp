@@ -6,6 +6,7 @@
 #include "GameState//Window.h"
 #include "shaders.h"
 #include "GameState/GameLogic.h"
+#include "GameState/MapData.h"
 
 #define mapWidth 24
 #define mapHeight 24
@@ -56,6 +57,72 @@ void init(){
     glfwSwapInterval(1);
 }
 
+namespace RayCaster {
+    void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
+        // Setup Player
+        Entities::PositionInfo2D info{{2, 2}, {-1, 0}, {0, .66}};
+        Entities::Player player;
+        player.updatePositionInfo(info);
+
+        // Establish Rendering POV -> POV of player
+        Entities::Camera cam{};
+        cam.subscribe(player);
+
+        // Setup Raycasting logic
+        GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight);
+        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test1.txt");
+
+
+        // Main loop
+        while (!window.shouldClose()) {
+            // Render quad after raycasting
+            for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
+                quad.textureData[i * 3 + 2] = 255;
+            }
+            rayCaster.DDA(player.getPositionInfo());
+            renderer.render(quad, shader, VAO);
+
+            // Clear Quad
+            quad.clearTextureData();
+
+            player.readInput();
+            window.swapBuffers();
+            glfwPollEvents();
+        }
+    }
+}
+
+namespace Projective {
+    void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
+        // Setup Player
+        Entities::PositionInfo3D info3D{{70, -110, 20}, 0, 0};
+        Entities::Player3D player;
+        player.updatePositionInfo(info3D);
+
+        // Setup Raycasting logic
+        GameState::True3DLogic doom(quad);
+
+        // Main loop
+        while (!window.shouldClose()) {
+            for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
+                quad.textureData[i * 3 + 0] = 195;
+                quad.textureData[i * 3 + 1] = 177;
+                quad.textureData[i * 3 + 2] = 225;
+            }
+
+            doom.draw3D(player.getPositionInfo());
+            renderer.render(quad, shader, VAO);
+
+            // Clear Quad
+            quad.clearTextureData();
+
+            player.readInput();
+            window.swapBuffers();
+            glfwPollEvents();
+        }
+    }
+}
+
 
 GameState::Keys GameState::InputReader::keys;
 int main() {
@@ -80,41 +147,7 @@ int main() {
     Rendering::Shader shader{vertexShaderSource, fragmentShaderSource};
     shader.useShader();
 
-    Entities::PositionInfo3D info3D{{70, -110, 20}, 0, 0};
-    Entities::Player3D player;
-    player.updatePositionInfo(info3D);
-
-//    // Setup Player
-//    Entities::PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
-//    Entities::Player player;
-//    player.updatePositionInfo(info);
-
-//    // Establish Rendering POV -> POV of player
-//    Entities::Camera cam{};
-//    cam.subscribe(player);
-
-    // Setup Raycasting logic
-    GameState::MapData map{worldMap};
-//    GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight, map);
-    GameState::True3DLogic doom(quad);
-
-    // Main loop
-    while (!window.shouldClose()) {
-        // Render quad after raycasting
-        for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
-            quad.textureData[i * 3 + 2] = 255;
-        }
-//        rayCaster.DDA(player.getPositionInfo());
-        doom.draw3D(player.getPositionInfo());
-        renderer.render(quad, shader, VAO);
-
-        // Clear Quad
-        quad.clearTextureData();
-
-        player.readInput();
-        window.swapBuffers();
-        glfwPollEvents();
-    }
+    RayCaster::run(window, quad, renderer, shader, VAO);
 
 
     glDeleteVertexArrays(1, &VAO);

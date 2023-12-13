@@ -22,37 +22,55 @@ namespace Entities {
     }
 
     void Player3D::readInput() {
-        double dx = sin(this->positionInfo3D.angle * M_PI / 180.0);
-        double dy = cos(this->positionInfo3D.angle * M_PI / 180.0);
+        double dx = sin(this->positionInfo3D.angle * M_PI / 180.0) * .5;
+        double dy = cos(this->positionInfo3D.angle * M_PI / 180.0) * .5;
 
-        if (keys.e_key) {
-            this->positionInfo3D.angle += 1;
-            if (this->positionInfo3D.angle >= 360) this->positionInfo3D.angle -= 360;
+        if (keys.shift_key) {
+            if (keys.w_key) {
+                positionInfo3D.pos[2] += 1;
+            }
+            if (keys.s_key) {
+                positionInfo3D.pos[2] -= 1;
+            }
+
+            if (keys.a_key) {
+                positionInfo3D.upDown -= 1;
+            }
+            if (keys.d_key) {
+                positionInfo3D.upDown += 1;
+            }
         }
 
-        if (keys.q_key) {
-            this->positionInfo3D.angle -= 1;
-            if (this->positionInfo3D.angle < 0) this->positionInfo3D.angle += 360;
-        }
+        else {
+            if (keys.e_key) {
+                this->positionInfo3D.angle += .5;
+                if (this->positionInfo3D.angle >= 360) this->positionInfo3D.angle -= 360;
+            }
 
-        if (keys.w_key) {
-            this->positionInfo3D.pos[0] += dx;
-            this->positionInfo3D.pos[1] += dy;
-        }
+            if (keys.q_key) {
+                this->positionInfo3D.angle -= .5;
+                if (this->positionInfo3D.angle < 0) this->positionInfo3D.angle += 360;
+            }
 
-        if (keys.s_key) {
-            this->positionInfo3D.pos[0] -= dx;
-            this->positionInfo3D.pos[1] -= dy;
-        }
+            if (keys.w_key) {
+                this->positionInfo3D.pos[0] += dx;
+                this->positionInfo3D.pos[1] += dy;
+            }
 
-        if (keys.a_key) {
-            this->positionInfo3D.pos[0] -= dy;
-            this->positionInfo3D.pos[1] += dx;
-        }
+            if (keys.s_key) {
+                this->positionInfo3D.pos[0] -= dx;
+                this->positionInfo3D.pos[1] -= dy;
+            }
 
-        if (keys.d_key) {
-            this->positionInfo3D.pos[0] += dy;
-            this->positionInfo3D.pos[1] -= dx;
+            if (keys.a_key) {
+                this->positionInfo3D.pos[0] -= dy;
+                this->positionInfo3D.pos[1] += dx;
+            }
+
+            if (keys.d_key) {
+                this->positionInfo3D.pos[0] += dy;
+                this->positionInfo3D.pos[1] -= dx;
+            }
         }
     }
 }
