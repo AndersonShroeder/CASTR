@@ -33,6 +33,10 @@ namespace GameState {
         int screenWidth = this->quad.width;
         int screenHeight = this->quad.height;
 
+        for (int i = 0 ; i < screenWidth * screenHeight; i++) {
+            quad.textureData[i * 3 + 2] = 255;
+        }
+
         for (int x = 0; x < screenWidth; x++) {
             double screenXVal = 2 * x / double(screenWidth) - 1;
 
@@ -116,6 +120,10 @@ namespace GameState {
 
     void RayCasterLogic::changeMap(const std::string &filePath) {
         this->worldMap.parseMapData(filePath);
+    }
+
+    void RayCasterLogic::init(Entities::Player &player) {
+        player.updatePositionInfo(this->worldMap.info);
     }
 
     True3DLogic::True3DLogic(Rendering::TextureQuad &quad) : quad(quad) {}

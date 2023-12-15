@@ -5,6 +5,8 @@
 #ifndef CASTR_MAPDATA_H
 #define CASTR_MAPDATA_H
 
+#include "../Entities/Entity.h"
+
 namespace GameState {
     class MapData {
     public:
@@ -19,6 +21,7 @@ namespace GameState {
     public:
         void parseMapData(const std::string &filePath) override;
         std::vector<std::vector<int>> map;
+        Entities::PositionInfo2D info;
         std::size_t rows;
         std::size_t cols;
     };

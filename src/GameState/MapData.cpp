@@ -28,22 +28,40 @@ namespace GameState {
 
     void RayCasterMapData::parseMapData(const std::string &filePath) {
         std::vector<std::string> contents = MapData::readMapData(filePath);
+        int currIdx = 0;
 
-        // Parse Map Grid
-        int width = std::stoi(contents.at(1));
-        int height = std::stoi(contents.at(2));
+        #define INT_AT_INDEX(i) std::stoi(contents.at(i++))
 
-        for (int i = 3; i < height + 3; i++) {
-            std::vector<int> row;
-            for (int j = 0; j < width; j++) {
-                row.push_back(std::stoi(contents.at(i).substr(j*2, j*2+1)));
+            // Parse Map Grid
+            {
+                int width = INT_AT_INDEX(currIdx), height = INT_AT_INDEX(currIdx);
+                int lineNumber = height + currIdx;
+
+                // Reserve memory for the vectors
+                this->map.reserve(height);
+                for (; currIdx < lineNumber; currIdx++) {
+                    // Reserve memory for the row vector
+                    std::vector<int> row;
+                    row.reserve(width);
+
+                    for (int j = 0; j < width; j++) {
+                        int value = std::stoi(contents.at(currIdx).substr(j * 2, 1));
+                        row.emplace_back(value);
+                    }
+
+                    this->map.emplace_back(std::move(row));
+                }
+            } // Release memory
+
+
+            // Parse Starting Point
+            {
+                double x = INT_AT_INDEX(currIdx), y = INT_AT_INDEX(currIdx);
+                double dirX = INT_AT_INDEX(currIdx), dirY = INT_AT_INDEX(currIdx);
+
+                info = {{x, y}, {dirX, dirY}, {0, .66}};
             }
-            this->map.push_back(row);
-        }
 
-        this->rows = height;
-        this->cols = width;
-
-        // Parse Starting Point
+        #undef INT_AT_INDEX
     }
 }

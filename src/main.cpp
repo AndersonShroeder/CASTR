@@ -1,15 +1,10 @@
-#include <iostream>
 #include "imports.h"
 #include "Rendering/Renderer.h"
-#include "Entities/Camera.h"
 #include "Entities/Player.h"
 #include "GameState//Window.h"
 #include "shaders.h"
 #include "GameState/GameLogic.h"
-#include "GameState/MapData.h"
 
-#define mapWidth 24
-#define mapHeight 24
 #define screenWidth 800
 #define screenHeight 800
 #define resolutionWidth 800
@@ -60,30 +55,17 @@ void init(){
 namespace RayCaster {
     void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
         // Setup Player
-        Entities::PositionInfo2D info{{2, 2}, {-1, 0}, {0, .66}};
         Entities::Player player;
-        player.updatePositionInfo(info);
-
-        // Establish Rendering POV -> POV of player
-        Entities::Camera cam{};
-        cam.subscribe(player);
 
         // Setup Raycasting logic
         GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight);
-        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test1.txt");
+        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test0.txt"); rayCaster.init(player);
 
 
         // Main loop
         while (!window.shouldClose()) {
-            // Render quad after raycasting
-            for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
-                quad.textureData[i * 3 + 2] = 255;
-            }
             rayCaster.DDA(player.getPositionInfo());
             renderer.render(quad, shader, VAO);
-
-            // Clear Quad
-            quad.clearTextureData();
 
             player.readInput();
             window.swapBuffers();

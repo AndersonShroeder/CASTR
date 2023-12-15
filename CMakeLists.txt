@@ -30,7 +30,6 @@ add_executable(CASTR src/main.cpp
         src/GameState/Window.cpp
         src/GameState/Window.h
         src/Util/Vector.h
-        src/Entities/Camera.cpp
         src/Entities/Entity.h
         src/Entities/Player.cpp
         src/Entities/Player.h

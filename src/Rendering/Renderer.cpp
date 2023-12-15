@@ -38,13 +38,17 @@ namespace Rendering {
 
         // Set the texture uniform in the shader
         glUniform1i(glGetUniformLocation(shader.getShaderProgram(), "ourTexture"), 0);
-// Bind the texture
+
+        // Bind the texture
         glBindTexture(GL_TEXTURE_2D, textureID);
 
         // Render the quad
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindVertexArray(0);
+
+        // Clear Texture Quad Pixels
+        object.clearTextureData();
     }
 
     void BasicShapeRenderer::render(Geometry &object, Shader &shader, GLuint VAO) {

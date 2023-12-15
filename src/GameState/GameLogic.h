@@ -10,6 +10,7 @@
 #include "../Entities/Entity.h"
 #include "../Rendering/Geometry.h"
 #include "MapData.h"
+#include "../Entities/Player.h"
 
 namespace GameState {
     struct Mapp {
@@ -38,10 +39,11 @@ namespace GameState {
 
         void changeMap(const std::string& filePath);
 
+        void init(Entities::Player &player);
+
     private:
         Rendering::TextureQuad &quad;
         int texWidth, texHeight;
-//    TextureData textureData;
         GameState::RayCasterMapData worldMap{};
         std::vector<GLuint> texture[8];
     };
@@ -53,8 +55,6 @@ namespace GameState {
 
     private:
         Rendering::TextureQuad &quad;
-
-        int interpolate(const std::pair<int, int> &v1, const std::pair<int, int> &v2, int y);
 
         void drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2);
 
