@@ -128,10 +128,10 @@ namespace GameState {
     True3DLogic::True3DLogic(Rendering::TextureQuad &quad) : quad(quad) {
         int loadSectors[]=
                 {//wall start, wall end, z1 height, z2 height, bottom color, top color
-                        0,  4, 0, 40, 2,3, //sector 1
-                        4,  8, 0, 40, 4,5, //sector 2
-                        8, 12, 0, 40, 6,7, //sector 3
-                        12,16, 0, 40, 0,1, //sector 4
+                        0,  4, 0, 40, 255, 0, 0, 0, 255, 0, //sector 1
+                        4,  8, 0, 40, 255, 0, 0, 0, 255, 0, //sector 2
+                        8, 12, 0, 40,  255, 0, 0, 0, 255, 0, //sector 3
+                        12,16, 0, 40,  255, 0, 0, 0, 255, 0, //sector 4
                 };
 
         int loadWalls[]=
@@ -161,7 +161,9 @@ namespace GameState {
         for (int s = 0; s < numSect; s++) {
             S[s].wallIdx = {loadSectors[v1 + 0], loadSectors[v1 + 1]};
             S[s].heights = {loadSectors[v1 + 2], loadSectors[v1 + 3] - loadSectors[v1 + 2]};
-            v1 += 6;
+            S[s].bottomColor[0] = loadSectors[v1+4]; S[s].bottomColor[1] = loadSectors[v1+5]; S[2].bottomColor[0] = loadSectors[v1+6];
+            S[s].topColor[0] = loadSectors[v1+7]; S[s].topColor[1] = loadSectors[v1+8]; S[2].topColor[0] = loadSectors[v1+9];
+            v1 += 10;
 
             for (w = S[s].wallIdx.first; w < S[s].wallIdx.second; w++) {
                 W[w].b1 = {loadWalls[v2 + 0], loadWalls[v2 + 1]};
@@ -182,6 +184,11 @@ namespace GameState {
 
         for (int s = 0; s < numSect; s++) {
             this->S[s].d = 0; // Clear dist
+
+            if (positionInfo3D.pos[2] < this->S[s].heights.first) this->S[s].surface = 1;
+            else if (positionInfo3D.pos[2] > this->S[s].heights.second) this->S[s].surface = 2;
+            else this->S[s].surface = 0;
+
             for (int loop = 0; loop < 2; loop++) {
                 for (int w = this->S[s].wallIdx.first; w < this->S[s].wallIdx.second; w++) {
                     // Perspective transformation
@@ -236,10 +243,11 @@ namespace GameState {
                     wy2 = static_cast<int>((wz2 * 200 / (wy2)) + quad.height / 2);
                     wy3 = static_cast<int>((wz3 * 200 / (wy3)) + quad.height / 2);
                     wy4 = static_cast<int>((wz4 * 200 / (wy4)) + quad.height / 2);
-                    drawLine(wx1, wx2, wy1, wy2, wy3, wy4, W[w].color); // Top edge
+                    drawLine(wx1, wx2, wy1, wy2, wy3, wy4, W[w].color, s); // Top edge
                 }
+                this->S[s].d /= (this->S[s].wallIdx.second - this->S[s].wallIdx.first);
+                this->S[s].surface *= -1;
             }
-            this->S[s].d /= (this->S[s].wallIdx.second - this->S[s].wallIdx.first);
         }
     }
 
@@ -254,7 +262,7 @@ namespace GameState {
         *z1 = *z1 + s*(z2-(*z1));
     }
 
-    void True3DLogic::drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3]) {
+    void True3DLogic::drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3], int s) {
         // Bresenham's line drawing algorithm
         int dx = x2 - x1; if (dx == 0) dx = 0;
         int dyb = bottomY2 - bottomY1;
@@ -277,6 +285,25 @@ namespace GameState {
             if(y2<   0){ y2=  0;} //clip y
             if(y1>quad.height){ y1=quad.height;} //clip y
             if(y2>quad.height){ y2=quad.height;} //clip y
+
+            if(this->S[s].surface== 1){this->S[s].surf[x]=y1; continue;} //save bottom points
+            if(this->S[s].surface== 2){this->S[s].surf[x]=y2; continue;} //save top    points
+
+            if(this->S[s].surface==-1){
+                for(int y=this->S[s].surf[x];y<y1;y++){
+                    quad.textureData[(quad.width*y + x) * 3 + 0] = this->S[s].bottomColor[0];
+                    quad.textureData[(quad.width*y + x) * 3 + 1] = this->S[s].bottomColor[1];
+                    quad.textureData[(quad.width*y + x) * 3 + 2] = this->S[s].bottomColor[2];
+                }
+            }
+            //bottom
+            if(this->S[s].surface==-2){
+                for(int y=y2;y<this->S[s].surf[x];y++){
+                    quad.textureData[(quad.width*y + x) * 3 + 0] = this->S[s].topColor[0];
+                    quad.textureData[(quad.width*y + x) * 3 + 1] = this->S[s].topColor[1];
+                    quad.textureData[(quad.width*y + x) * 3 + 2] = this->S[s].topColor[2];
+                }
+            } //top
 
             for(int y=y1;y<y2;y++){
                 quad.textureData[(quad.width*y + x) * 3 + 0] = color[0];

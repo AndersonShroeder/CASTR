@@ -14,11 +14,6 @@
 #include "../Entities/Player.h"
 
 namespace GameState {
-    template<typename T>
-    struct Point{
-        T x;
-        T y;
-    };
     struct Wall {
         vInt2d b1; // Bottom line point one
         vInt2d b2; // Bottom line point two
@@ -29,7 +24,12 @@ namespace GameState {
         std::pair<int, int> wallIdx;
         std::pair<int, int> heights; // bottom/top heights
         std::pair<int, int> center; // Center of sector
+        int topColor[3];
+        int bottomColor[3];
+        int surf[800];
+        int surface;
         int d;
+
 
         static bool compare(Sector &a, Sector &b);
     };
@@ -65,7 +65,7 @@ namespace GameState {
 
         int distance(int x1, int y1, int x2, int y2);
 
-        void drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3]);
+        void drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3], int s);
 
         void clipBehindPlayer(int *x1, int *y1, int *z1, int x2, int y2, int z2);
 
