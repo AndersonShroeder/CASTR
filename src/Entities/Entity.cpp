@@ -1,23 +1,14 @@
-//
-// Created by Anderson on 11/28/2023.
-//
+// Implementation of the Entity class methods
 
 #include "Entity.h"
 
 namespace Entities {
-    void Entity::updatePositionInfo(PositionInfo2D positionInfo) {
-        this->positionInfo = positionInfo;
-    }
-
-    PositionInfo2D &Entity::getPositionInfo() {
+    PositionInfo &Entity::getPositionInfo() {
         return this->positionInfo;
     }
 
-    void Entity3D::updatePositionInfo(PositionInfo3D positionInfo) {
-        this->positionInfo3D = positionInfo;
+    void Entity::updatePositionInfo(PositionInfo data) {
+        this->positionInfo = data;
     }
 
-    PositionInfo3D &Entity3D::getPositionInfo() {
-        return this->positionInfo3D;
-    }
-}
+} // namespace Entities

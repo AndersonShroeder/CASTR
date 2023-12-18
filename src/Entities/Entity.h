@@ -1,8 +1,8 @@
 // Created by Anderson on 11/28/2023.
 
 /**
- * @file Entity.h
- * @brief Declaration of the Entity class and related structures for representing entities in a 2D space.
+ * @file Entity2D.h
+ * @brief Declaration of the Entity2D class and related structures for representing entities in a 2D space.
  */
 
 #ifndef CASTR_ENTITY_H
@@ -11,51 +11,39 @@
 #include "../Util//Vector.h"
 
 namespace Entities {
-/**
- * @brief Structure representing position information in 2D space, including position, direction, and plane vectors.
- */
-    struct PositionInfo2D {
-        vDouble2d pos; /**< Position vector in 2D space. */
-        vDouble2d dir; /**< Direction vector in 2D space. */
-        vDouble2d plane; /**< Plane vector in 2D space. */
+
+    /**
+     * @struct PositionInfo
+     * @brief Structure to store positional information of a 2D entity, including position, direction, and orientation.
+     */
+    struct PositionInfo {
+        vDouble3d pos, dir, plane;
+        int angle{0}, upDown{0};
     };
 
-    struct PositionInfo3D {
-        vDouble3d pos; /**< Position vector in 2D space. */
-        double angle;
-        int upDown;
-    };
-
-/**
- * @brief Class representing an entity in a 2D space with position and movement information.
- */
+    /**
+     * @class Entity
+     * @brief Base class for 2D entities providing methods to access and update positional information.
+     */
     class Entity {
-    protected:
-        PositionInfo2D positionInfo; /**< Position information of the entity in 2D space. */
-        double moveSpeed = 0.002; /**< Movement speed of the entity. */
-        double rotationSpeed = 0.02; /**< Rotation speed of the entity. */
-
     public:
         /**
-         * @brief Getter for the position information of the entity.
-         * @return A reference to the PositionInfo2D structure containing position, direction, and plane vectors.
+         * @brief Gets the PositionInfo of the entity.
+         * @return Reference to the PositionInfo structure.
          */
-        PositionInfo2D &getPositionInfo();
+        PositionInfo& getPositionInfo();
 
         /**
-         * @brief Updates the position information of the entity.
-         * @param positionInfo The new position information to set.
+         * @brief Updates the PositionInfo of the entity.
+         * @param data The new PositionInfo data to set.
          */
-        void updatePositionInfo(PositionInfo2D positionInfo);
-    };
+        void updatePositionInfo(PositionInfo data);
 
-    class Entity3D {
     protected:
-        PositionInfo3D positionInfo3D;
-
-    public:
-        PositionInfo3D &getPositionInfo();
-        void updatePositionInfo(PositionInfo3D positionInfo);
+        PositionInfo positionInfo; ///< Positional information of the entity.
+        double moveSpeed{.02};      ///< Speed of movement.
+        double rotationSpeed{.02};  ///< Speed of rotation.
     };
-}
+} // namespace Entities
+
 #endif //CASTR_ENTITY_H

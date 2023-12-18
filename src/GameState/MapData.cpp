@@ -60,7 +60,7 @@ namespace GameState {
                 double dirX = INT_AT_INDEX(currIdx), dirY = INT_AT_INDEX(currIdx);
 
                 info = {{x, y}, {dirX, dirY}, {0, .66}};
-            }
+            } // Release memory
 
         #undef INT_AT_INDEX
     }

@@ -10,8 +10,6 @@ set(GLFW_DLL_PATH "${CMAKE_SOURCE_DIR}/lib/glfw3.dll")
 # Add the directory containing GLFW headers to include path
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
-add_subdirectory(Google_tests)
-
 add_library(GLFW SHARED IMPORTED)
 set_target_properties(GLFW PROPERTIES IMPORTED_IMPLIB ${GLFW_LIBRARY_PATH})
 

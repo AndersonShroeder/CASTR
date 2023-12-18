@@ -2,7 +2,7 @@
 
 /**
  * @file Player.h
- * @brief Declaration of the Player class, derived from InputReader and Entity, for representing a player entity.
+ * @brief Declaration of the Player class, derived from InputReader and Entity2D, for representing a player entity.
  */
 
 #ifndef CASTR_PLAYER_H
@@ -10,21 +10,48 @@
 
 #include "../GameState/InputReader.h"
 #include "Entity.h"
+
 namespace Entities {
-/**
- * @brief Class representing a player entity, derived from InputReader and Entity.
- */
-    class Player : public GameState::InputReader, public Entity {
+
+    /**
+     * @class Player
+     * @brief Represents a player entity with input reading capabilities.
+     *
+     * The Player class is derived from both InputReader and Entity, allowing it to read input
+     * and have a 2D entity representation in the game.
+     */
+    class Player : public GameState::InputReader, public Entity {};
+
+    /**
+     * @class Player2D
+     * @brief Represents a 2D player entity with input reading capabilities.
+     *
+     * The Player2D class is a specialization of the Player class, providing specific input reading
+     * functionality for 2D entities.
+     */
+    class Player2D : public Player {
     public:
         /**
-         * @brief Implementation of the readInput function for handling player input.
+         * @brief Reads input for the 2D player entity.
          */
         void readInput() override;
     };
 
-    class Player3D : public GameState::InputReader, public Entity3D {
+    /**
+     * @class Player3D
+     * @brief Represents a 3D player entity with input reading capabilities.
+     *
+     * The Player3D class is a specialization of the Player class, providing specific input reading
+     * functionality for 3D entities.
+     */
+    class Player3D : public Player {
     public:
+        /**
+         * @brief Reads input for the 3D player entity.
+         */
         void readInput() override;
     };
-}
+
+} // namespace Entities
+
 #endif //CASTR_PLAYER_H

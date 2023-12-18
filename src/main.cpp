@@ -12,54 +12,23 @@
 #define texWidth 64
 #define texHeight 64
 
-
-std::vector<std::vector<int>> worldMap=
-        {
-                {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-                {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-                {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-                {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-                {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-                {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-                {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-                {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-                {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-                {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-                {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-        };
-
 void init(){
     // Initialize GLFW
     glfwInit();
 
     // Initialize window settings
     GameState::Window::initWindowSettings();
-
-    // Set the swap interval (vertical sync) to 1 (enabled)
-    glfwSwapInterval(1);
 }
 
 namespace RayCaster {
     void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
         // Setup Player
-        Entities::Player player;
+        Entities::Player2D player;
 
         // Setup Raycasting logic
         GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight);
-        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test0.txt"); rayCaster.init(player);
+        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test0.txt");
+        rayCaster.init(player);
 
 
         // Main loop
@@ -77,7 +46,7 @@ namespace RayCaster {
 namespace Projective {
     void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
         // Setup Player
-        Entities::PositionInfo3D info3D{{70, -110, 20}, 0, 0};
+        Entities::PositionInfo info3D{{70, -110, 20}, {}, {}, 0, 0};
         Entities::Player3D player;
         player.updatePositionInfo(info3D);
 
@@ -129,7 +98,7 @@ int main() {
     Rendering::Shader shader{vertexShaderSource, fragmentShaderSource};
     shader.useShader();
 
-    RayCaster::run(window, quad, renderer, shader, VAO);
+    Projective::run(window, quad, renderer, shader, VAO);
 
 
     glDeleteVertexArrays(1, &VAO);

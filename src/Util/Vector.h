@@ -18,10 +18,11 @@
 template <typename T, std::size_t N>
 struct Vector {
     // Constructors
-    inline Vector() = default;
-    inline Vector(std::initializer_list<T> initList);
-    inline Vector(Vector &v);
-    inline explicit Vector(T initList[N]);
+
+    Vector();
+    Vector(std::initializer_list<T> initList);
+    Vector(Vector &v);
+    Vector(T initList[N]);
 
     // Scalar Operations
     inline Vector operator+(T s);
@@ -256,11 +257,14 @@ T Vector<T, N>::magnitude() {
 ///////////////
 
 template<typename T, std::size_t N>
-Vector<T, N>::Vector(std::initializer_list<T> initList) {
-    if (initList.size() != N){
-        throw std::invalid_argument("Incorrect number of elements provided");
+Vector<T, N>::Vector() {
+    for (size_t i = 0; i < N; i++) {
+        this->elements[i] = 0;
     }
+}
 
+template<typename T, std::size_t N>
+Vector<T, N>::Vector(std::initializer_list<T> initList) {
     size_t i = 0;
     for (auto& element : initList) {
         this->elements[i++] = element;
@@ -304,6 +308,7 @@ typedef Vector<double, 3> vDouble3d;
  * @param degrees The angle of rotation in degrees.
  * @return The rotated 2D vector.
  */
-vDouble2d rotate2D(vDouble2d &v, double degrees);
+vDouble3d rotate2D(vDouble3d &v, double degrees);
+vDouble3d perp2D(vDouble3d &v);
 
 #endif //CASTR_VECTOR_H
