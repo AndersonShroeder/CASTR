@@ -52,6 +52,7 @@ namespace Projective {
 
         // Setup Raycasting logic
         GameState::True3DLogic doom(quad);
+        doom.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\True3D Levels\\test0.txt");
 
         // Main loop
         while (!window.shouldClose()) {

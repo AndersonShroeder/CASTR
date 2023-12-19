@@ -17,6 +17,8 @@ namespace GameState {
      * @brief Base class for game logic, providing pixel filling functionality.
      */
     class GameLogic {
+    public:
+        virtual void changeMap(const std::string &filePath) = 0;
     protected:
         /**
          * @brief Fills pixel data in the given texture quad at the specified pixel coordinates with the provided color.
@@ -50,7 +52,7 @@ namespace GameState {
          * @brief Changes the map by parsing map data from the specified file path.
          * @param filePath The file path to the new map data.
          */
-        void changeMap(const std::string &filePath);
+        void changeMap(const std::string &filePath) override;
 
         /**
          * @brief Initializes the game logic with player information.
@@ -82,6 +84,12 @@ namespace GameState {
          * @param positionInfo3D The 3D position information of the player.
          */
         void draw3D(Entities::PositionInfo positionInfo3D);
+
+        /**
+         * @brief Changes the map by parsing map data from the specified file path.
+         * @param filePath The file path to the new map data.
+         */
+        void changeMap(const std::string &filePath) override;
 
     private:
         /**

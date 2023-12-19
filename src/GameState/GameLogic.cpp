@@ -132,56 +132,56 @@ namespace GameState {
         player.updatePositionInfo(this->worldMap.info);
     }
     True3DLogic::True3DLogic(Rendering::TextureQuad &quad) : quad(quad) {
-        int loadSectors[]=
-                {//wall start, wall end, z1 height, z2 height, bottom color, top color
-                        0,  4, 0, 40, 255, 0, 0, 0, 255, 0, //sector 1
-                        4,  8, 0, 40, 255, 0, 0, 0, 255, 0, //sector 2
-                        8, 12, 0, 40,  255, 0, 0, 0, 255, 0, //sector 3
-                        12,16, 0, 40,  255, 0, 0, 0, 255, 0, //sector 4
-                };
-
-        int loadWalls[]=
-                {//x1,y1, x2,y2, color
-                        0, 0, 32, 0, 0, 177, 225,
-                        32, 0, 32,32, 0, 177/2, 225/2,
-                        32,32,  0,32, 0, 177, 225,
-                        0,32,  0, 0, 0, 177/2, 225/2,
-
-                        64, 0, 96, 0, 0, 177, 225,
-                        96, 0, 96,32, 0, 177/2, 225/2,
-                        96,32, 64,32, 0, 177, 225,
-                        64,32, 64, 0, 0, 177/2, 225/2,
-
-                        64, 64, 96, 64, 0, 177, 225,
-                        96, 64, 96, 96, 0, 177/2, 225/2,
-                        96, 96, 64, 96, 0, 177, 225,
-                        64, 96, 64, 64, 0, 177/2, 225/2,
-
-                        0, 64, 32, 64, 0, 177, 225,
-                        32, 64, 32, 96, 0, 177/2, 225/2,
-                        32, 96,  0, 96, 0, 177, 225,
-                        0, 96,  0, 64, 0, 177/2, 225/2,
-                };
-
-        int v1 = 0, v2 = 0, w;
-        for (int s = 0; s < numSect; s++) {
-            Sector st;
-            st.wallIdx = {loadSectors[v1 + 0], loadSectors[v1 + 1]};
-            st.heights = {loadSectors[v1 + 2], loadSectors[v1 + 3] - loadSectors[v1 + 2]};
-            st.bottomColor[0] = loadSectors[v1+4]; st.bottomColor[1] = loadSectors[v1+5]; st.bottomColor[2] = loadSectors[v1+6];
-            st.topColor[0] = loadSectors[v1+7]; st.topColor[1] = loadSectors[v1+8]; st.topColor[2] = loadSectors[v1+9];
-            mapData.sectors.emplace_back(st);
-            v1 += 10;
-
-            for (w = st.wallIdx.first; w < st.wallIdx.second; w++) {
-                Wall wall;
-                wall.b1 = {loadWalls[v2 + 0], loadWalls[v2 + 1]};
-                wall.b2 = {loadWalls[v2 + 2], loadWalls[v2 + 3]};
-                wall.color[0] = loadWalls[v2 + 4]; wall.color[1] = loadWalls[v2 + 5]; wall.color[2] = loadWalls[v2 + 6];
-                mapData.walls.emplace_back(wall);
-                v2 += 7;
-            }
-        }
+//        int loadSectors[]=
+//                {//wall start, wall end, z1 height, z2 height, bottom color, top color
+//                        0,  4, 0, 40, 255, 0, 0, 0, 255, 0, //sector 1
+//                        4,  8, 0, 40, 255, 0, 0, 0, 255, 0, //sector 2
+//                        8, 12, 0, 40,  255, 0, 0, 0, 255, 0, //sector 3
+//                        12,16, 0, 40,  255, 0, 0, 0, 255, 0, //sector 4
+//                };
+//
+//        int loadWalls[]=
+//                {//x1,y1, x2,y2, color
+//                        0, 0, 32, 0, 0, 177, 225,
+//                        32, 0, 32,32, 0, 177/2, 225/2,
+//                        32,32,  0,32, 0, 177, 225,
+//                        0,32,  0, 0, 0, 177/2, 225/2,
+//
+//                        64, 0, 96, 0, 0, 177, 225,
+//                        96, 0, 96,32, 0, 177/2, 225/2,
+//                        96,32, 64,32, 0, 177, 225,
+//                        64,32, 64, 0, 0, 177/2, 225/2,
+//
+//                        64, 64, 96, 64, 0, 177, 225,
+//                        96, 64, 96, 96, 0, 177/2, 225/2,
+//                        96, 96, 64, 96, 0, 177, 225,
+//                        64, 96, 64, 64, 0, 177/2, 225/2,
+//
+//                        0, 64, 32, 64, 0, 177, 225,
+//                        32, 64, 32, 96, 0, 177/2, 225/2,
+//                        32, 96,  0, 96, 0, 177, 225,
+//                        0, 96,  0, 64, 0, 177/2, 225/2,
+//                };
+//
+//        int v1 = 0, v2 = 0, w;
+//        for (int s = 0; s < numSect; s++) {
+//            Sector st;
+//            st.wallIdx = {loadSectors[v1 + 0], loadSectors[v1 + 1]};
+//            st.heights = {loadSectors[v1 + 2], loadSectors[v1 + 3] - loadSectors[v1 + 2]};
+//            st.bottomColor[0] = loadSectors[v1+4]; st.bottomColor[1] = loadSectors[v1+5]; st.bottomColor[2] = loadSectors[v1+6];
+//            st.topColor[0] = loadSectors[v1+7]; st.topColor[1] = loadSectors[v1+8]; st.topColor[2] = loadSectors[v1+9];
+//            mapData.sectors.emplace_back(st);
+//            v1 += 10;
+//
+//            for (w = st.wallIdx.first; w < st.wallIdx.second; w++) {
+//                Wall wall;
+//                wall.b1 = {loadWalls[v2 + 0], loadWalls[v2 + 1]};
+//                wall.b2 = {loadWalls[v2 + 2], loadWalls[v2 + 3]};
+//                wall.color[0] = loadWalls[v2 + 4]; wall.color[1] = loadWalls[v2 + 5]; wall.color[2] = loadWalls[v2 + 6];
+//                mapData.walls.emplace_back(wall);
+//                v2 += 7;
+//            }
+//        }
     }
 
     void True3DLogic::projectWalls(Entities::PositionInfo positionInfo3D, Sector &s, double angle, int loopNum) {
@@ -307,5 +307,9 @@ namespace GameState {
                     for(int y = y1; y < y2; y++) GameLogic::fillPixels(quad, {x, y}, color);
             }
         }
+    }
+
+    void True3DLogic::changeMap(const std::string &filePath) {
+        this->mapData.parseMapData(filePath);
     }
 }

@@ -56,7 +56,7 @@ namespace GameState {
 
     class True3DMapData : public MapData {
     public:
-        void parseMapData(const std::string &filePath) override {};
+        void parseMapData(const std::string &filePath) override;
         Entities::PositionInfo startPos;
         std::vector<Wall> walls;         ///< Vector of walls
         std::vector<Sector> sectors;     ///< Vector of sectors
