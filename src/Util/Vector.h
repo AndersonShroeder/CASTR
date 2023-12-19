@@ -22,7 +22,7 @@ struct Vector {
     Vector();
     Vector(std::initializer_list<T> initList);
     Vector(Vector &v);
-    Vector(T initList[N]);
+    explicit Vector(T initList[N]);
 
     // Scalar Operations
     inline Vector operator+(T s);
@@ -43,7 +43,7 @@ struct Vector {
     inline Vector operator/=(Vector v);
 
     // Array Operations
-    inline T& operator[](size_t index);
+    inline T& operator[](std::size_t index);
     inline T sum();
 
     // Util Operations

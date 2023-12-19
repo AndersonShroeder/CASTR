@@ -5,6 +5,12 @@
 #include "GameLogic.h"
 #include <algorithm>
 namespace GameState {
+    void GameLogic::fillPixels(const Rendering::TextureQuad& quad, vInt2d pixel, const int *color) {
+        int y = pixel[1], x = pixel[0];
+        quad.textureData[(quad.width*y + x) * 3 + 0] = color[0];
+        quad.textureData[(quad.width*y + x) * 3 + 1] = color[1];
+        quad.textureData[(quad.width*y + x) * 3 + 2] = color[2];
+    }
 
     RayCasterLogic::RayCasterLogic(Rendering::TextureQuad &quad, int texWidth, int texHeight)
             : quad(quad), texWidth(texWidth), texHeight(texHeight) {
@@ -159,168 +165,147 @@ namespace GameState {
 
         int v1 = 0, v2 = 0, w;
         for (int s = 0; s < numSect; s++) {
-            S[s].wallIdx = {loadSectors[v1 + 0], loadSectors[v1 + 1]};
-            S[s].heights = {loadSectors[v1 + 2], loadSectors[v1 + 3] - loadSectors[v1 + 2]};
-            S[s].bottomColor[0] = loadSectors[v1+4]; S[s].bottomColor[1] = loadSectors[v1+5]; S[2].bottomColor[0] = loadSectors[v1+6];
-            S[s].topColor[0] = loadSectors[v1+7]; S[s].topColor[1] = loadSectors[v1+8]; S[2].topColor[0] = loadSectors[v1+9];
+            Sector st;
+            st.wallIdx = {loadSectors[v1 + 0], loadSectors[v1 + 1]};
+            st.heights = {loadSectors[v1 + 2], loadSectors[v1 + 3] - loadSectors[v1 + 2]};
+            st.bottomColor[0] = loadSectors[v1+4]; st.bottomColor[1] = loadSectors[v1+5]; st.bottomColor[2] = loadSectors[v1+6];
+            st.topColor[0] = loadSectors[v1+7]; st.topColor[1] = loadSectors[v1+8]; st.topColor[2] = loadSectors[v1+9];
+            mapData.sectors.emplace_back(st);
             v1 += 10;
 
-            for (w = S[s].wallIdx.first; w < S[s].wallIdx.second; w++) {
-                W[w].b1 = {loadWalls[v2 + 0], loadWalls[v2 + 1]};
-                W[w].b2 = {loadWalls[v2 + 2], loadWalls[v2 + 3]};
-                W[w].color[0] = loadWalls[v2 + 4]; W[w].color[1] = loadWalls[v2 + 5]; W[w].color[2] = loadWalls[v2 + 6];
+            for (w = st.wallIdx.first; w < st.wallIdx.second; w++) {
+                Wall wall;
+                wall.b1 = {loadWalls[v2 + 0], loadWalls[v2 + 1]};
+                wall.b2 = {loadWalls[v2 + 2], loadWalls[v2 + 3]};
+                wall.color[0] = loadWalls[v2 + 4]; wall.color[1] = loadWalls[v2 + 5]; wall.color[2] = loadWalls[v2 + 6];
+                mapData.walls.emplace_back(wall);
                 v2 += 7;
             }
         }
     }
 
+    void True3DLogic::projectWalls(Entities::PositionInfo positionInfo3D, Sector &s, double angle, int loopNum) {
+        for (int w = s.wallIdx.first; w < s.wallIdx.second; w++) {
+            vDouble3d p1 = {static_cast<double>(mapData.walls.at(w).b1.first), static_cast<double>(mapData.walls.at(w).b1.second)};
+            vDouble3d p2 = {static_cast<double>(mapData.walls.at(w).b2.first), static_cast<double>(mapData.walls.at(w).b2.second)};
+            p1 -= positionInfo3D.pos; p2 -= positionInfo3D.pos;
+
+            if (loopNum == 0) {
+                std::swap(p1[0], p2[0]);
+                std::swap(p1[1], p2[1]);
+            }
+
+            // World points
+            vDouble3d wp1 = rotate2D(p1, angle);
+            vDouble3d wp2 = rotate2D(p2, angle);
+            vDouble3d wp3 = wp1;
+            vDouble3d wp4 = wp2;
+
+            // While z-component of wp1 and wp2 is zero, magnitude of the average is distance!
+            vDouble3d sum = (wp1 + wp2) * 1/2;
+            s.d += static_cast<int>(sum.magnitude());
+
+            // Calculate world Z values
+            wp1[2] = s.heights.first - positionInfo3D.pos[2] + ((positionInfo3D.upDown * wp1[1]) / 32.0);
+            wp2[2] = s.heights.first - positionInfo3D.pos[2] + ((positionInfo3D.upDown * wp2[1]) / 32.0);
+            wp3[2] = wp1[2] + s.heights.second;
+            wp4[2] = wp2[2] + s.heights.second;
+
+            // wall behind player, don't draw
+            if(wp1[1]<1 && wp2[1]<1) continue;
+
+            // Otherwise check if wall needs to be clipped to avoid rendering enigmas
+            if(wp1[1]<1)
+            {
+                True3DLogic::clipCoordinates(wp1,wp2); //bottom line
+                True3DLogic::clipCoordinates(wp3,wp4); //top line
+            }
+
+            if(wp2[1]<1)
+            {
+                True3DLogic::clipCoordinates(wp2,wp1); //bottom line
+                True3DLogic::clipCoordinates(wp4, wp3); //top line
+            }
+
+            // Project world points onto screen
+            int wx1 = static_cast<int>((wp1[0] * 200 / (wp1[1]) + quad.width / 2));
+            int wy1 = static_cast<int>((wp1[2] * 200 / (wp1[1]) + quad.height / 2));
+            int wx2 = static_cast<int>((wp2[0] * 200 / (wp2[1]) + quad.width / 2));
+            int wy2 = static_cast<int>((wp2[2] * 200 / (wp2[1]) + quad.height / 2));
+            int wy3 = static_cast<int>((wp3[2] * 200 / (wp3[1]) + quad.height / 2));
+            int wy4 = static_cast<int>((wp4[2] * 200 / (wp4[1]) + quad.height / 2));
+
+            // Draw Wall onto screen with screen coordinates
+            drawWall({wx1, wx2}, {wy1, wy2}, {wy3, wy4}, mapData.walls[w].color, s);
+        }
+        s.d /= (s.wallIdx.second - s.wallIdx.first);
+        s.surface *= -1;
+    }
+
     void True3DLogic::draw3D(Entities::PositionInfo positionInfo3D) {
-        double angle = (positionInfo3D.angle) * M_PI/180;
-        double CS = cos(angle);
-        double S = sin(angle);
+        // Player angle in radians
+        const double angle = (positionInfo3D.angle) * M_PI/180;
 
-//        MAGIC NUMBER 4 -> Need to fix this probably chagne to vector of Sectors
-        std::sort(this->S, this->S + 4, Sector::compare);
+        // Sort Sectors by distance for rendering purposes
+        std::sort(std::begin(mapData.sectors), std::end(mapData.sectors), Sector::compare);
 
-        for (int s = 0; s < numSect; s++) {
-            this->S[s].d = 0; // Clear dist
+        for (Sector &s : mapData.sectors) {
+            s.d = 0; // Clear dist
 
-            if (positionInfo3D.pos[2] < this->S[s].heights.first) this->S[s].surface = 1;
-            else if (positionInfo3D.pos[2] > this->S[s].heights.second) this->S[s].surface = 2;
-            else this->S[s].surface = 0;
+            // Determine if drawing top, bottom or neither for sector
+            s.surface = positionInfo3D.pos[2] < s.heights.first ? 1 : positionInfo3D.pos[2] > s.heights.second ? 2: 0;
 
-            for (int loop = 0; loop < 2; loop++) {
-                for (int w = this->S[s].wallIdx.first; w < this->S[s].wallIdx.second; w++) {
-                    // Perspective transformation
-                    int x1 = W[w].b1[0] - positionInfo3D.pos[0];
-                    int y1 = W[w].b1[1] - positionInfo3D.pos[1];
-                    int x2 = W[w].b2[0] - positionInfo3D.pos[0];
-                    int y2 = W[w].b2[1] - positionInfo3D.pos[1];
-
-                    if(loop==0){ int swp=x1; x1=x2; x2=swp; swp=y1; y1=y2; y2=swp;}
-
-                    int wx1 = x1 * CS - y1 * S;
-                    int wx2 = x2 * CS - y2 * S;
-                    int wx3 = wx1;
-                    int wx4 = wx2;
-
-                    int wy1 = y1 * CS + x1 * S;
-                    int wy2 = y2 * CS + x2 * S;
-                    int wy3 = wy1;
-                    int wy4 = wy2;
-
-                    this->S[s].d+=distance(0,0, (wx1+wx2)/2, (wy1+wy2)/2 );
-
-                    int wz1 = this->S[s].heights.first - positionInfo3D.pos[2] + ((positionInfo3D.upDown * wy1) / 32.0);
-                    int wz2 = this->S[s].heights.first - positionInfo3D.pos[2] + ((positionInfo3D.upDown * wy2) / 32.0);
-                    int wz3 = wz1 + this->S[s].heights.second;
-                    int wz4 = wz2 + this->S[s].heights.second;
-
-                    // Check for non-zero denominator before perspective transformation
-                    wy1 = (wy1 != 0) ? wy1 : 1;
-                    wy2 = (wy2 != 0) ? wy2 : 1;
-                    wy3 = (wy3 != 0) ? wy3 : 1;
-                    wy4 = (wy4 != 0) ? wy4 : 1;
-
-                    //dont draw if behind player
-                    if(wy1<1 && wy2<1){ continue;}      //wall behind player, dont draw
-                    //point 1 behind player, clip
-                    if(wy1<1)
-                    {
-                        clipBehindPlayer(&wx1,&wy1,&wz1, wx2,wy2,wz2); //bottom line
-                        clipBehindPlayer(&wx3,&wy3,&wz3, wx4,wy4,wz4); //top line
-                    }
-                    //point 2 behind player, clip
-                    if(wy2<1)
-                    {
-                        clipBehindPlayer(&wx2,&wy2,&wz2, wx1,wy1,wz1); //bottom line
-                        clipBehindPlayer(&wx4,&wy4,&wz4, wx3,wy3,wz3); //top line
-                    }
-
-                    wx1 = static_cast<int>((wx1 * 200 / (wy1)) + quad.width / 2);
-                    wy1 = static_cast<int>((wz1 * 200 / (wy1)) + quad.height / 2);
-                    wx2 = static_cast<int>((wx2 * 200 / (wy2)) + quad.width / 2);
-                    wy2 = static_cast<int>((wz2 * 200 / (wy2)) + quad.height / 2);
-                    wy3 = static_cast<int>((wz3 * 200 / (wy3)) + quad.height / 2);
-                    wy4 = static_cast<int>((wz4 * 200 / (wy4)) + quad.height / 2);
-                    drawLine(wx1, wx2, wy1, wy2, wy3, wy4, W[w].color, s); // Top edge
-                }
-                this->S[s].d /= (this->S[s].wallIdx.second - this->S[s].wallIdx.first);
-                this->S[s].surface *= -1;
-            }
+            projectWalls(positionInfo3D, s, angle, 0); // Back Walls
+            projectWalls(positionInfo3D, s, angle, 1); // Front Walls
         }
     }
 
-    void True3DLogic::clipBehindPlayer(int *x1,int *y1,int *z1, int x2,int y2,int z2) //clip line
+    void True3DLogic::clipCoordinates(vDouble3d &v1, vDouble3d &v2)
     {
-        float da=*y1;                                 //distance plane -> point a
-        float db= y2;                                 //distance plane -> point b
-        float d=da-db; if(d==0){ d=1;}
-        float s = da/(da-db);                         //intersection factor (between 0 and 1)
-        *x1 = *x1 + s*(x2-(*x1));
-        *y1 = *y1 + s*(y2-(*y1)); if(*y1==0){ *y1=1;} //prevent divide by zero
-        *z1 = *z1 + s*(z2-(*z1));
+        double da = v1[1];
+        double db = v2[1];
+        double s = da / (da - db);
+
+        // Modify ending points to render such that appropriately clipped
+        v1[0] = static_cast<int>(v1[0] + s * (v2[0] - v1[0]));
+        v1[1] = static_cast<int>(v1[1] + s * (v2[1] - v1[1])); if (v1[1] == 0) { v1[1] = 1; }
+        v1[2] = static_cast<int>(v1[2] + s * (v2[2] - v1[2]));
     }
 
-    void True3DLogic::drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3], int s) {
-        // Bresenham's line drawing algorithm
-        int dx = x2 - x1; if (dx == 0) dx = 0;
-        int dyb = bottomY2 - bottomY1;
-        int dyt = topY2 - topY1;
-        int xs = x1;
+    void True3DLogic::drawWall(vInt2d vX, vInt2d vYBottom, vInt2d vYTop, const int color[3], Sector &s) const {
+        int dx = vX[1] - vX[0]; if (dx == 0) dx = 0;
+        int dyb = vYBottom[1] - vYBottom[0];
+        int dyt = vYTop[1] - vYTop[0];
+        int xs = vX[0];
 
-//        //CLIP X
-        if(x1<   0){ x1=   0;} //clip left
-        if(x2<   0){ x2=   0;} //clip left
-        if(x1>quad.width){ x1=quad.width;} //clip right
-        if(x2>quad.width){ x2=quad.width;} //clip right
-        //draw x verticle lines
-        for(int x=x1;x<x2;x++)
-        {
+        // Only render points that appear on screen
+        vX[0] = vX[0] < 0 ? 0 : vX[0] > quad.width ? quad.width : vX[0];
+        vX[1] = vX[1] < 0 ? 0 : vX[1] > quad.width ? quad.width : vX[1];
+
+        for(int x=vX[0];x<vX[1];x++) {
             //The Y start and end point
-            int y1 = dyb*(x-xs+0.5)/dx+bottomY1; //y bottom point
-            int y2 = dyt*(x-xs+0.5)/dx+topY1; //y bottom point
-            //Clip Y
-            if(y1<   0){ y1=  0;} //clip y
-            if(y2<   0){ y2=  0;} //clip y
-            if(y1>quad.height){ y1=quad.height;} //clip y
-            if(y2>quad.height){ y2=quad.height;} //clip y
+            vDouble2d vY = {dyb * (x - xs + 0.5) / dx + vYBottom[0], dyt * (x - xs + 0.5) / dx + vYTop[0]}; //y bottom point
+            int y1 = vY[0] < 0 ? 0 : vY[0] > quad.height ? quad.height : static_cast<int>(vY[0]);
+            int y2 = vY[1] < 0 ? 0 : vY[1] > quad.height ? quad.height : static_cast<int>(vY[1]);
 
-            if(this->S[s].surface== 1){this->S[s].surf[x]=y1; continue;} //save bottom points
-            if(this->S[s].surface== 2){this->S[s].surf[x]=y2; continue;} //save top    points
+            if(s.surface== 1){s.surf[x]=y1; continue;}
+            if(s.surface== 2){s.surf[x]=y2; continue;}
 
-            if(this->S[s].surface==-1){
-                for(int y=this->S[s].surf[x];y<y1;y++){
-                    quad.textureData[(quad.width*y + x) * 3 + 0] = this->S[s].bottomColor[0];
-                    quad.textureData[(quad.width*y + x) * 3 + 1] = this->S[s].bottomColor[1];
-                    quad.textureData[(quad.width*y + x) * 3 + 2] = this->S[s].bottomColor[2];
-                }
-            }
-            //bottom
-            if(this->S[s].surface==-2){
-                for(int y=y2;y<this->S[s].surf[x];y++){
-                    quad.textureData[(quad.width*y + x) * 3 + 0] = this->S[s].topColor[0];
-                    quad.textureData[(quad.width*y + x) * 3 + 1] = this->S[s].topColor[1];
-                    quad.textureData[(quad.width*y + x) * 3 + 2] = this->S[s].topColor[2];
-                }
-            } //top
+            switch(s.surface) {
+                // Draw bottom surface if visible
+                case -1:
+                    for(int y = s.surf[x]; y < y1; y++) GameLogic::fillPixels(quad, {x, y}, s.bottomColor);
 
-            for(int y=y1;y<y2;y++){
-                quad.textureData[(quad.width*y + x) * 3 + 0] = color[0];
-                quad.textureData[(quad.width*y + x) * 3 + 1] = color[1];
-                quad.textureData[(quad.width*y + x) * 3 + 2] = color[2];
+
+                // Draw top surface if visible
+                case -2:
+                    for(int y = y2; y < s.surf[x]; y++) GameLogic::fillPixels(quad, {x, y}, s.topColor);
+
+
+                // Always draw wall
+                default:
+                    for(int y = y1; y < y2; y++) GameLogic::fillPixels(quad, {x, y}, color);
             }
         }
-    }
-
-    int True3DLogic::distance(int x1, int y1, int x2, int y2) {
-        return sqrt((x2-x1)*(x2-x1) + (y2 - y1) * (y2 - y1));
-    }
-
-    bool Sector::compare(Sector& a, Sector& b) {
-        if (a.d > b.d) {
-            return true;
-        }
-        return false;
     }
 }

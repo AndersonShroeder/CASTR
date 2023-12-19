@@ -12,65 +12,106 @@
 #include "../Rendering/Geometry.h"
 #include "MapData.h"
 #include "../Entities/Player.h"
-
 namespace GameState {
-    struct Wall {
-        vInt2d b1; // Bottom line point one
-        vInt2d b2; // Bottom line point two
-        int color[3];
-    };
-
-    struct Sector {
-        std::pair<int, int> wallIdx;
-        std::pair<int, int> heights; // bottom/top heights
-        std::pair<int, int> center; // Center of sector
-        int topColor[3];
-        int bottomColor[3];
-        int surf[800];
-        int surface;
-        int d;
-
-
-        static bool compare(Sector &a, Sector &b);
-    };
-
-
+    /**
+     * @brief Base class for game logic, providing pixel filling functionality.
+     */
     class GameLogic {
+    protected:
+        /**
+         * @brief Fills pixel data in the given texture quad at the specified pixel coordinates with the provided color.
+         * @param quad The texture quad.
+         * @param pixel The pixel coordinates.
+         * @param color The color to fill.
+         */
+        static void fillPixels(const Rendering::TextureQuad &quad, vInt2d pixel, const int color[3]);
     };
 
-    class RayCasterLogic : public GameLogic{
+    /**
+     * @brief RayCasterLogic class for raycasting and map management.
+     */
+    class RayCasterLogic : public GameLogic {
     public:
+        /**
+         * @brief Constructor for RayCasterLogic, initializes textures based on width and height.
+         * @param quad The texture quad.
+         * @param texWidth The width of the textures.
+         * @param texHeight The height of the textures.
+         */
         explicit RayCasterLogic(Rendering::TextureQuad &quad, int texWidth, int texHeight);
 
+        /**
+         * @brief Performs the DDA (Digital Differential Analyzer) algorithm for raycasting.
+         * @param positionInfo The position information of the player.
+         */
         void DDA(Entities::PositionInfo positionInfo);
 
-        void changeMap(const std::string& filePath);
+        /**
+         * @brief Changes the map by parsing map data from the specified file path.
+         * @param filePath The file path to the new map data.
+         */
+        void changeMap(const std::string &filePath);
 
+        /**
+         * @brief Initializes the game logic with player information.
+         * @param player The player entity.
+         */
         void init(Entities::Player &player);
 
     private:
-        Rendering::TextureQuad &quad;
-        int texWidth, texHeight;
-        GameState::RayCasterMapData worldMap;
-        std::vector<GLuint> texture[8];
+        int texWidth;                 ///< Width of textures
+        int texHeight;                ///< Height of textures
+        Rendering::TextureQuad &quad; ///< Texture quad
+        GameState::RayCasterMapData worldMap; ///< Map data
+        std::vector<GLuint> texture[8];        ///< Texture vector
     };
 
-    class True3DLogic : public GameLogic{
+    /**
+     * @brief True3DLogic class for managing 3D rendering.
+     */
+    class True3DLogic : public GameLogic {
     public:
+        /**
+         * @brief Constructor for True3DLogic, initializes with a texture quad.
+         * @param quad The texture quad.
+         */
         explicit True3DLogic(Rendering::TextureQuad &quad);
+
+        /**
+         * @brief Draws the 3D scene based on player's position and angle.
+         * @param positionInfo3D The 3D position information of the player.
+         */
         void draw3D(Entities::PositionInfo positionInfo3D);
 
     private:
-        Rendering::TextureQuad &quad;
+        /**
+         * @brief Projects walls onto the screen based on player's position and angle.
+         * @param positionInfo3D The 3D position information of the player.
+         * @param s The sector to project walls from.
+         * @param angle The viewing angle.
+         * @param loopNum The loop iteration number.
+         */
+        void projectWalls(Entities::PositionInfo positionInfo3D, Sector &s, double angle, int loopNum);
 
-        int distance(int x1, int y1, int x2, int y2);
+        /**
+         * @brief Draws a wall onto the screen with specified screen coordinates and color.
+         * @param vX X-coordinates of the wall.
+         * @param vYBottom Y-coordinates of the bottom of the wall.
+         * @param vYTop Y-coordinates of the top of the wall.
+         * @param color The color of the wall.
+         * @param s The sector containing the wall.
+         */
+        void drawWall(vInt2d vX, vInt2d vYBottom, vInt2d vYTop, const int color[3], Sector &s) const;
 
-        void drawLine(int x1, int x2, int bottomY1, int bottomY2, int topY1, int topY2, int color[3], int s);
+        /**
+         * @brief Clips coordinates for wall rendering.
+         * @param v1 First vector to clip.
+         * @param v2 Second vector to clip.
+         */
+        static void clipCoordinates(vDouble3d &v1, vDouble3d &v2);
 
-        void clipBehindPlayer(int *x1, int *y1, int *z1, int x2, int y2, int z2);
-
-        Wall W[30];
-        Sector S[30];
+        Rendering::TextureQuad &quad;    ///< Texture quad
+        True3DMapData mapData;
     };
 }
 

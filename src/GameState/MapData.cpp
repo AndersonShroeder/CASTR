@@ -8,6 +8,13 @@
 #include "MapData.h"
 
 namespace GameState {
+    bool Sector::compare(Sector& a, Sector& b) {
+        if (a.d > b.d) {
+            return true;
+        }
+        return false;
+    }
+
     std::vector<std::string> MapData::readMapData(const std::string &filePath) {
         std::ifstream inputFile(filePath);
 
