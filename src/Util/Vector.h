@@ -1,8 +1,8 @@
 // Created by Anderson on 11/15/2023.
 
 /**
- * @file Vector.h
- * @brief Declaration of the Vector class template for N-dimensional vectors and related operations.
+ * @file Util.h
+ * @brief Declaration of the Util class template for N-dimensional vectors and related operations.
  */
 
 #ifndef CASTR_VECTOR_H
@@ -18,10 +18,11 @@
 template <typename T, std::size_t N>
 struct Vector {
     // Constructors
-    inline Vector() = default;
-    inline Vector(std::initializer_list<T> initList);
-    inline Vector(Vector &v);
-    inline explicit Vector(T initList[N]);
+
+    Vector();
+    Vector(std::initializer_list<T> initList);
+    Vector(Vector &v);
+    explicit Vector(T initList[N]);
 
     // Scalar Operations
     inline Vector operator+(T s);
@@ -42,10 +43,10 @@ struct Vector {
     inline Vector operator/=(Vector v);
 
     // Array Operations
-    inline T& operator[](size_t index);
+    inline T& operator[](std::size_t index);
     inline T sum();
 
-    // Vector Operations
+    // Util Operations
     inline T magnitude();
 
     /**
@@ -55,7 +56,7 @@ struct Vector {
     std::string toString();
 
 private:
-    // Vector elements
+    // Util elements
     T elements[N];
 
     // Size of vector
@@ -239,7 +240,7 @@ T Vector<T, N>::sum() {
 
 
 ////////////////////
-// Vector Operations
+// Util Operations
 ////////////////////
 
 template<typename T, std::size_t N>
@@ -256,11 +257,14 @@ T Vector<T, N>::magnitude() {
 ///////////////
 
 template<typename T, std::size_t N>
-Vector<T, N>::Vector(std::initializer_list<T> initList) {
-    if (initList.size() != N){
-        throw std::invalid_argument("Incorrect number of elements provided");
+Vector<T, N>::Vector() {
+    for (size_t i = 0; i < N; i++) {
+        this->elements[i] = 0;
     }
+}
 
+template<typename T, std::size_t N>
+Vector<T, N>::Vector(std::initializer_list<T> initList) {
     size_t i = 0;
     for (auto& element : initList) {
         this->elements[i++] = element;
@@ -295,12 +299,16 @@ typedef Vector<int, 2> vInt2d;
  */
 typedef Vector<double, 2> vDouble2d;
 
+typedef Vector<int, 3> vInt3d;
+typedef Vector<double, 3> vDouble3d;
+
 /**
  * @brief Rotates a 2D double vector by a specified angle in degrees.
  * @param v The 2D vector to be rotated.
  * @param degrees The angle of rotation in degrees.
  * @return The rotated 2D vector.
  */
-vDouble2d rotate2D(vDouble2d &v, double degrees);
+vDouble3d rotate2D(vDouble3d &v, double degrees);
+vDouble3d perp2D(vDouble3d &v);
 
 #endif //CASTR_VECTOR_H

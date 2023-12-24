@@ -1,99 +1,115 @@
 #include "imports.h"
-#include "Geometry/Geometry.h"
-#include "Shaders/shaders.h"
 #include "Rendering/Renderer.h"
-#include "Rendering/Shader.h"
-#include "Window/Window.h"
-#include "Vector/Vector.h"
-#include "Entities/Entity.h"
 #include "Entities/Player.h"
-#include "Camera/Camera.h"
+#include "GameState//Window.h"
+#include "shaders.h"
+#include "GameState/GameLogic.h"
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
-
-int worldMap[mapWidth][mapHeight]=
-        {
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-                {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        };
+#define screenWidth 800
+#define screenHeight 800
+#define resolutionWidth 800
+#define resolutionHeight 800
+#define texWidth 64
+#define texHeight 64
 
 void init(){
     // Initialize GLFW
     glfwInit();
 
     // Initialize window settings
-    Window::initWindowSettings();
-
-    // Set the swap interval (vertical sync) to 1 (enabled)
-    glfwSwapInterval(1);
+    GameState::Window::initWindowSettings();
 }
 
-Keys InputReader::keys;
+namespace RayCaster {
+    void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
+        // Setup Player
+        Entities::Player2D player;
+
+        // Setup Raycasting logic
+        GameState::RayCasterLogic rayCaster(quad, texWidth, texHeight);
+        rayCaster.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\RayCaster Levels\\test0.txt");
+        rayCaster.init(player);
+
+
+        // Main loop
+        while (!window.shouldClose()) {
+            rayCaster.DDA(player.getPositionInfo());
+            renderer.render(quad, shader, VAO);
+
+            player.readInput();
+            window.swapBuffers();
+            glfwPollEvents();
+        }
+    }
+}
+
+namespace Projective {
+    void run(GameState::Window window, Rendering::TextureQuad quad, Rendering::TextureRenderer renderer, Rendering::Shader shader, GLuint VAO) {
+        // Setup Player
+        Entities::PositionInfo info3D{{70, -110, 20}, {}, {}, 0, 0};
+        Entities::Player3D player;
+        player.updatePositionInfo(info3D);
+
+        // Setup Raycasting logic
+        GameState::True3DLogic doom(quad);
+        doom.changeMap("C:\\Users\\Anderson\\CLionProjects\\CASTR\\src\\True3D Levels\\test0.txt");
+
+        // Main loop
+        while (!window.shouldClose()) {
+            for (int i = 0 ; i < resolutionWidth * resolutionHeight; i++) {
+                quad.textureData[i * 3 + 0] = 195;
+                quad.textureData[i * 3 + 1] = 177;
+                quad.textureData[i * 3 + 2] = 225;
+            }
+
+            doom.draw3D(player.getPositionInfo());
+            renderer.render(quad, shader, VAO);
+
+            // Clear Quad
+            quad.clearTextureData();
+
+            player.readInput();
+            window.swapBuffers();
+            glfwPollEvents();
+        }
+    }
+}
+
+
+GameState::Keys GameState::InputReader::keys;
 int main() {
     // Initialization
     init();
-    Window window{screenWidth, screenHeight, "Window 1"};
+    GameState::Window window{screenWidth, screenHeight, 3, "GameState 1"};
     window.makeCurrentContext();
     gladLoadGL();
 
     // Setup Input reading
-    glfwSetKeyCallback(window.window, InputReader::readKeys);
+    glfwSetKeyCallback(window.getWindow(), GameState::InputReader::readKeys);
 
     // Setup VAO
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    Rendering::TextureQuad quad{resolutionWidth, resolutionHeight, 3};
 
     // Setup Renderer
-    BasicShapeRenderer renderer;
-    RayCastRenderer caster;
-    Shader shader{vertexShaderSource, fragmentShaderSource};
+    Rendering::TextureRenderer renderer;
+    Rendering::Shader shader{vertexShaderSource, fragmentShaderSource};
+    shader.useShader();
 
-    // Setup Player
-    PositionInfo2D info{{22, 12}, {-1, 0}, {0, .66}};
-    Camera cam{};
-    Player player;
-    player.updatePositionInfo(info);
-    cam.subscribe(player);
+    Projective::run(window, quad, renderer, shader, VAO);
 
-    while (!window.shouldClose()) {
-        glClear(GL_COLOR_BUFFER_BIT);
 
-        Lines l = caster.DDA(screenWidth, screenHeight, cam.getPositionInfo(), worldMap);
-        renderer.render(l, shader, VAO);
-        player.readInput();
-
-        window.swapBuffers();
-        glfwPollEvents();
-    }
     glDeleteVertexArrays(1, &VAO);
+    // Clean up
+//    glDeleteTextures(1, &textureID);
+//    glDeleteBuffers(1, &VBO);
+//    glDeleteProgram(shaderProgram);
 
-    // Set the OpenGL viewport to match the window dimensions
-    glViewport(0, 0, 800, 800);
+    // Terminate GLFW
+    glfwTerminate();
 
     return 0;
 }
